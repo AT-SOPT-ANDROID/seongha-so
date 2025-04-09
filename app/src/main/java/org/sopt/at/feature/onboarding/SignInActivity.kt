@@ -1,4 +1,65 @@
 package org.sopt.at.feature.onboarding
 
-class SignInActivity {
+import android.content.Context
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
+import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+
+class SignInActivity : ComponentActivity() {
+    private val viewModel: SignupViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        setContent {
+            ATSOPTANDROIDTheme {
+                when (viewModel.currentStep) {
+                    SignupStep.ID -> {
+                        SignupScreen(
+                            value = viewModel.textId,
+                            placeholder = "아이디",
+                            title = "아이디를 입력해주세요.",
+                            description = "영문 소문자 또는 영문 대문자, 숫자 조합 6~12 자리",
+                            isPassword = false,
+                            onValueChange = {value -> viewModel.textId = value},
+                            onNextButtonClicked = {
+                                if(viewModel.idValidCheck(viewModel.textId))
+                                    viewModel.nextStep()
+                                else{
+                                    Toast.makeText(this, "아이디가 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        )
+                    }
+                    SignupStep.PASSWORD -> {
+                        SignupScreen(
+                            value = viewModel.textPwd,
+                            placeholder = "비밀번호",
+                            title = "비밀번호를 입력해주세요.",
+                            description = "영문, 숫자, 특수문자(~!@$%^&*) 조합 8~15자리",
+                            isPassword = true,
+                            onValueChange = {value -> viewModel.textPwd = value},
+                            onNextButtonClicked = {
+                                if(viewModel.pwdValidCheck(viewModel.textPwd)) {
+                                    //TODO SignInActivity로 화면 전환
+                                }
+                                else{
+                                    Toast.makeText(this, "비밀번호가 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
