@@ -56,7 +56,7 @@ import org.sopt.at.ui.theme.Gray60
 
 @Preview
 @Composable
-fun SignupScreen(
+fun SignUpScreen(
     value: String,
     onValueChange: (String) -> Unit,
     onNextButtonClicked: () -> Unit,

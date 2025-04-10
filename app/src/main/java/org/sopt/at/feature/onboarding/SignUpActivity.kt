@@ -1,21 +1,15 @@
 package org.sopt.at.feature.onboarding
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import kotlinx.coroutines.launch
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
-class SignInActivity : ComponentActivity() {
-    private val viewModel: SignupViewModel by viewModels()
+class SignUpActivity : ComponentActivity() {
+    private val viewModel: SignUpViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,8 +17,8 @@ class SignInActivity : ComponentActivity() {
         setContent {
             ATSOPTANDROIDTheme {
                 when (viewModel.currentStep) {
-                    SignupStep.ID -> {
-                        SignupScreen(
+                    SignUpStep.ID -> {
+                        SignUpScreen(
                             value = viewModel.textId,
                             placeholder = "아이디",
                             title = "아이디를 입력해주세요.",
@@ -40,8 +34,8 @@ class SignInActivity : ComponentActivity() {
                             }
                         )
                     }
-                    SignupStep.PASSWORD -> {
-                        SignupScreen(
+                    SignUpStep.PASSWORD -> {
+                        SignUpScreen(
                             value = viewModel.textPwd,
                             placeholder = "비밀번호",
                             title = "비밀번호를 입력해주세요.",

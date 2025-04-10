@@ -5,17 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
-class SignupViewModel : ViewModel() {
+class SignUpViewModel : ViewModel() {
 
-    var currentStep by mutableStateOf(SignupStep.ID)
+    var currentStep by mutableStateOf(SignUpStep.ID)
         private set
     var textId by mutableStateOf("")
     var textPwd by mutableStateOf("")
 
     fun nextStep(){
         currentStep = when(currentStep){
-            SignupStep.ID -> SignupStep.PASSWORD
-            SignupStep.PASSWORD -> SignupStep.PASSWORD
+            SignUpStep.ID -> SignUpStep.PASSWORD
+            SignUpStep.PASSWORD -> SignUpStep.PASSWORD
         }
     }
 

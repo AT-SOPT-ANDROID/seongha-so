@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ATSOPTANDROID"
         tools:targetApi="31">
         <activity
-            android:name=".feature.onboarding.SignInActivity"
+            android:name=".feature.onboarding.SignUpActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ATSOPTANDROID">
