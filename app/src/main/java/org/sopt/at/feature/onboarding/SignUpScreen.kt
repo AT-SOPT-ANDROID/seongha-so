@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.sopt.at.ui.component.NextButton
 import org.sopt.at.ui.component.ReturnBar
-import org.sopt.at.ui.component.SignupTextField
+import org.sopt.at.ui.component.SignUpTextField
 import org.sopt.at.ui.theme.Gray0
 import org.sopt.at.ui.theme.Gray20
 import org.sopt.at.ui.theme.Gray40
@@ -101,14 +101,14 @@ fun SignUpScreen(
                     horizontalAlignment = BiasAlignment.Horizontal(-1f),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    SignupTextField(value, onValueChange, placeholder, isPassword)
+                    SignUpTextField(value, onValueChange, placeholder, isPassword)
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(description, fontSize = 12.sp, textAlign = TextAlign.Start, color = Gray20)
                 }
             }
         }
         Column(
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 100.dp)
         ) {
             NextButton(onNextButtonClicked)
         }

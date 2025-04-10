@@ -55,6 +55,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import org.sopt.at.feature.onboarding.SignUpActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 class MainActivity : ComponentActivity() {
@@ -128,7 +129,7 @@ fun Sopt() {
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text("회원가입하기", textAlign = TextAlign.Start, fontSize = 15.sp, modifier = Modifier.clickable {
-                val intent = Intent(context, SignupActivity::class.java).apply {
+                val intent = Intent(context, SignUpActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 }
                 context.startActivity(intent)
