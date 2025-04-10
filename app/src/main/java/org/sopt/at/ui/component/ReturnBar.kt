@@ -17,14 +17,15 @@ import org.sopt.at.ui.theme.Gray0
 
 @Composable
 fun ReturnBar (
+    onClick: () -> Unit
 ){
     Column(
-        modifier = Modifier.fillMaxWidth().padding(top = 10.dp, start = 10.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 50.dp, start = 10.dp),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(
-            onClick = {},
+            onClick = onClick,
             modifier = Modifier.align(Alignment.Start).size(25.dp),
             enabled = true
         ) {

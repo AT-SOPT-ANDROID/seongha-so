@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,8 +25,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -60,57 +63,63 @@ fun SignUpScreen(
     value: String,
     onValueChange: (String) -> Unit,
     onNextButtonClicked: () -> Unit,
+    onReturnClicked: () -> Unit,
     placeholder: String,
     title: String,
     description: String,
     isPassword: Boolean
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ){
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            ReturnBar()
             Column(
-                modifier = Modifier.padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ) {
+                ReturnBar(onReturnClicked)
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween
+                    verticalArrangement = Arrangement.Top
                 ) {
-                    Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
-                    Text(
-                        text = title,
-                        modifier = Modifier,
-                        fontSize = 25.sp,
-                        color = Gray0
-                    )
-                    Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
-                }
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
+                        Text(
+                            text = title,
+                            modifier = Modifier,
+                            fontSize = 25.sp,
+                            color = Gray0
+                        )
+                        Spacer(modifier = Modifier.fillMaxWidth().height(10.dp))
+                    }
 
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = BiasAlignment.Horizontal(-1f),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    SignUpTextField(value, onValueChange, placeholder, isPassword)
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(description, fontSize = 12.sp, textAlign = TextAlign.Start, color = Gray20)
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = BiasAlignment.Horizontal(-1f),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        SignUpTextField(value, onValueChange, placeholder, isPassword)
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Text(description, fontSize = 12.sp, textAlign = TextAlign.Start, color = Gray20)
+                    }
                 }
             }
-        }
-        Column(
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 100.dp)
-        ) {
-            NextButton(onNextButtonClicked)
+            Column(
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 100.dp)
+            ) {
+                NextButton(onNextButtonClicked)
+            }
         }
     }
 }
