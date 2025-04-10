@@ -3,6 +3,7 @@ package org.sopt.at.feature.onboarding
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.annotation.RestrictTo
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -41,7 +43,10 @@ import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,6 +61,25 @@ import org.sopt.at.ui.theme.Gray60
 
 @Preview
 @Composable
+fun Preview(
+){
+    val snackbarHostState = remember { SnackbarHostState() }
+    LoginSCreen(
+        idValue = "",
+        pwdValue = "",
+        onIdValueChange = {value -> },
+        onPwdValueChange = {value -> },
+        onReturnClicked = {},
+        onLoginClicked = {},
+        onFindIdClicked = {},
+        onFindPwdClicked = {},
+        onSignupClicked = {},
+        title = "TVING ID 로그인",
+        snackbarHostState = snackbarHostState
+    )
+}
+
+@Composable
 fun LoginSCreen(
     idValue: String,
     pwdValue: String,
@@ -67,72 +91,85 @@ fun LoginSCreen(
     onFindPwdClicked: () -> Unit,
     onSignupClicked: () -> Unit,
     title: String,
+    snackbarHostState: SnackbarHostState,
 ) {
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    )
-    {
-        Column(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Top
-        ){
-            ReturnBar(onReturnClicked)
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            color = MaterialTheme.colorScheme.background
+        )
+        {
             Column(
-                modifier = Modifier.padding(20.dp).fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
-            ) {
+            ){
+                ReturnBar(onReturnClicked)
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.SpaceBetween
-                ){
-                    Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
-                    Text(text = title,
-                        modifier = Modifier,
-                        fontSize = 25.sp,
-                        color = Gray0)
-                    Spacer(modifier = Modifier.fillMaxWidth().height(30.dp))
-                }
+                    modifier = Modifier.padding(20.dp).fillMaxHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ){
+                        Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
+                        Text(text = title,
+                            modifier = Modifier,
+                            fontSize = 25.sp,
+                            color = Gray0)
+                        Spacer(modifier = Modifier.fillMaxWidth().height(30.dp))
+                    }
 
-                Column (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = BiasAlignment.Horizontal(-1f),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ){
-                    LoginTextField(idValue, onIdValueChange, "아이디", false)
-                    LoginTextField(pwdValue, onPwdValueChange, "비밀번호", true)
+                    Column (
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = BiasAlignment.Horizontal(-1f),
+                        verticalArrangement = Arrangement.SpaceBetween
+                    ){
+                        LoginTextField(idValue, onIdValueChange, "아이디", false)
+                        LoginTextField(pwdValue, onPwdValueChange, "비밀번호", true)
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
+                    BasicButton("로그인하기", onLoginClicked)
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier,
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceAround
+                    )
+                    {
+                        TextButton(
+                            onClick = onFindIdClicked
+                        ) {
+                            Text("아이디 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                        }
+                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).fillMaxHeight().background(Gray20))
+                        TextButton(
+                            onClick = onFindPwdClicked
+                        ) {
+                            Text("비밀번호 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                        }
+                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).fillMaxHeight().background(Gray20))
+                        TextButton(
+                            onClick = onSignupClicked
+                        ) {
+                            Text("회원가입", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(15.dp).fillMaxWidth())
+                    Text(text = buildAnnotatedString {
+                        append("이 사이트는 Google reCAPTCHA로 보호되며,\nGoogle 개인정보 처리방침과 서비스 약관이 적용됩니다.")
+                        addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 31,end = 47)
+                        addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 49,end = 55)
+                    },
+                        fontSize = 12.sp, textAlign = TextAlign.Center, color = Gray20)
                 }
-                BasicButton("로그인하기", onLoginClicked)
-                Row(
-                    modifier = Modifier.height(30.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround
-                )
-                {
-                    TextButton(
-                        onClick = onFindIdClicked
-                    ) {
-                        Text("아이디 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
-                    }
-                    Spacer(modifier = Modifier.padding(7.dp).width(1.dp).fillMaxHeight().background(Gray20))
-                    TextButton(
-                        onClick = onFindPwdClicked
-                    ) {
-                        Text("비밀번호 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
-                    }
-                    Spacer(modifier = Modifier.padding(7.dp).width(1.dp).fillMaxHeight().background(Gray20))
-                    TextButton(
-                        onClick = onSignupClicked
-                    ) {
-                        Text("회원가입", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
-                    }
-                }
-                Spacer(modifier = Modifier.height(15.dp).fillMaxWidth())
-                Text("이 사이트는 Google reCAPTCHA로 보호되며, \nGoogle 개인정보 처리방침과 서비스 약관이 적용됩니다.", fontSize = 12.sp, textAlign = TextAlign.Center, color = Gray20)
             }
         }
     }
