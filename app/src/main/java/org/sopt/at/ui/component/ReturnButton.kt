@@ -2,8 +2,6 @@ package org.sopt.at.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
@@ -16,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.at.ui.theme.Gray0
 
 @Composable
-fun ReturnBar (
+fun ReturnButton (
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ){
