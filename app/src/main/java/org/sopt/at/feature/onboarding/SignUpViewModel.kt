@@ -19,6 +19,13 @@ class SignUpViewModel : ViewModel() {
         }
     }
 
+    fun previewStep(){
+        currentStep = when(currentStep){
+            SignUpStep.ID -> SignUpStep.ID
+            SignUpStep.PASSWORD -> SignUpStep.ID
+        }
+    }
+
     fun idValidCheck(id: String): Boolean{
         val regex = Regex("^[a-zA-Z0-9]{6,12}\$")
         return id.matches(regex)

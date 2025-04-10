@@ -1,6 +1,7 @@
 package org.sopt.at.feature.onboarding
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +50,10 @@ import org.sopt.at.ui.theme.Gray60
 
 @Preview
 @Composable
-fun LoginSCreen() {
+fun LoginSCreen(
+    onReturnClicked: () -> Unit,
+    onLoginClicked: () -> Unit
+) {
     val context : Context = LocalContext.current
     var textId by remember { mutableStateOf("") }
     var textPwd by remember { mutableStateOf("") }
@@ -62,7 +66,7 @@ fun LoginSCreen() {
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ){
-        ReturnBar()
+        ReturnBar(onReturnClicked)
         Column(
             modifier = Modifier.padding(20.dp).fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -143,14 +147,7 @@ fun LoginSCreen() {
 
             }
             Button(
-                onClick = {
-                    if(textId.length >= 6){
-                        Toast.makeText(context, "로그인 완료", Toast.LENGTH_SHORT).show()
-                        scope.launch {
-                            snackbarHostState.showSnackbar("로그인 완료")
-                        }
-                    }
-                },
+                onClick = onLoginClicked,
                 modifier = Modifier.fillMaxWidth().padding(top = 20.dp, bottom = 20.dp).height(50.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Gray40),
                 shape = RoundedCornerShape(5.dp)

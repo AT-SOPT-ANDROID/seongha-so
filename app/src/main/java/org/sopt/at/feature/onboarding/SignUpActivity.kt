@@ -1,5 +1,6 @@
 package org.sopt.at.feature.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -34,7 +35,10 @@ class SignUpActivity : ComponentActivity() {
                                 }
                             },
                             onReturnClicked = {
-
+                                viewModel.previewStep()
+                                val intent = Intent(this, LoginActivity::class.java)
+                                setResult(RESULT_OK, intent)
+                                finish()
                             }
                         )
                     }
@@ -48,14 +52,19 @@ class SignUpActivity : ComponentActivity() {
                             onValueChange = {value -> viewModel.textPwd = value},
                             onNextButtonClicked = {
                                 if(viewModel.pwdValidCheck(viewModel.textPwd)) {
-                                    //TODO SignInActivity로 화면 전환
+                                    //결과와 함께 이전 액티비티로 돌아가기
+                                    val intent = Intent(this, LoginActivity::class.java)
+                                    intent.putExtra("id", viewModel.textId)
+                                    intent.putExtra("pwd", viewModel.textPwd)
+                                    setResult(RESULT_OK, intent)
+                                    finish()
                                 }
                                 else{
                                     Toast.makeText(this, "비밀번호가 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
                                 }
                             },
                             onReturnClicked = {
-
+                                viewModel.previewStep()
                             }
                         )
                     }
