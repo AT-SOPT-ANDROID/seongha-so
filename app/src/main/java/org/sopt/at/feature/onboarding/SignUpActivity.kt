@@ -7,6 +7,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import org.sopt.at.ui.component.ReturnBar
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
@@ -18,8 +20,10 @@ class SignUpActivity : ComponentActivity() {
 
         setContent {
             ATSOPTANDROIDTheme {
+                val buttonValid: Boolean
                 when (viewModel.currentStep) {
                     SignUpStep.ID -> {
+                        buttonValid = viewModel.textId.isNotBlank()
                         SignUpScreen(
                             value = viewModel.textId,
                             placeholder = "아이디",
@@ -39,10 +43,12 @@ class SignUpActivity : ComponentActivity() {
                                 val intent = Intent(this, LoginActivity::class.java)
                                 setResult(RESULT_OK, intent)
                                 finish()
-                            }
+                            },
+                            buttonValid = buttonValid
                         )
                     }
                     SignUpStep.PASSWORD -> {
+                        buttonValid = viewModel.textPwd.isNotBlank()
                         SignUpScreen(
                             value = viewModel.textPwd,
                             placeholder = "비밀번호",
@@ -65,7 +71,8 @@ class SignUpActivity : ComponentActivity() {
                             },
                             onReturnClicked = {
                                 viewModel.previewStep()
-                            }
+                            },
+                            buttonValid = buttonValid
                         )
                     }
                 }

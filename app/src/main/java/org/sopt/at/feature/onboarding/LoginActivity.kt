@@ -10,11 +10,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import org.sopt.at.feature.mypage.MyActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.utils.hideKeyboard
 
 class LoginActivity : ComponentActivity() {
     private lateinit var getResult : ActivityResultLauncher<Intent>
@@ -38,6 +41,7 @@ class LoginActivity : ComponentActivity() {
             ATSOPTANDROIDTheme {
                 val snackbarHostState = remember { SnackbarHostState() }
                 val scope = rememberCoroutineScope()
+                val buttonValid = viewModel.textId.isNotBlank() && viewModel.textPwd.isNotBlank()
                 LoginSCreen(
                     idValue = viewModel.textId,
                     pwdValue = viewModel.textPwd,
@@ -47,6 +51,7 @@ class LoginActivity : ComponentActivity() {
                         //TODO 비워둠
                     },
                     onLoginClicked = {
+                        hideKeyboard(this)
                         if(viewModel.loginValidCheck()){
                             //MyActivity로 이동하기
                             val intent = Intent(this, MyActivity::class.java)
@@ -74,7 +79,8 @@ class LoginActivity : ComponentActivity() {
                         getResult.launch(intent)
                     },
                     title = "TVING ID 로그인",
-                    snackbarHostState = snackbarHostState
+                    snackbarHostState = snackbarHostState,
+                    buttonValid = buttonValid
                 )
             }
         }

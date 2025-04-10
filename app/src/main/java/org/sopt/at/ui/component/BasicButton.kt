@@ -23,20 +23,21 @@ import kotlinx.coroutines.launch
 import org.sopt.at.ui.theme.Gray0
 import org.sopt.at.ui.theme.Gray20
 import org.sopt.at.ui.theme.Gray40
+import org.sopt.at.ui.theme.Red40
 
 @Composable
 fun BasicButton(
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    buttonValid: Boolean
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth().height(50.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Gray40, contentColor = Gray0),
-        shape = RoundedCornerShape(5.dp),
-        interactionSource = interactionSource
+        colors = if(buttonValid) ButtonDefaults.buttonColors(containerColor = Red40) else ButtonDefaults.buttonColors(containerColor = Gray40),
+        enabled = buttonValid,
+        shape = RoundedCornerShape(5.dp)
     ) {
-        Text(text, fontSize = 17.sp, color = Gray20)
+        Text(text, fontSize = 17.sp, color = if(buttonValid) Color.White else Gray20)
     }
 }

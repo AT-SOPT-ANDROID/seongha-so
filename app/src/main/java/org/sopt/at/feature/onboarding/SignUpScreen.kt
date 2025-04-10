@@ -68,7 +68,8 @@ fun SignUpScreen(
     placeholder: String,
     title: String,
     description: String,
-    isPassword: Boolean
+    isPassword: Boolean,
+    buttonValid: Boolean
 ) {
     Scaffold(
     ) { innerPadding ->
@@ -121,7 +122,7 @@ fun SignUpScreen(
                 Column(
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 100.dp)
                 ) {
-                    NextButton(onNextButtonClicked)
+                    NextButton(onNextButtonClicked, buttonValid)
                 }
             }
         }

@@ -75,7 +75,8 @@ fun Preview(
         onFindPwdClicked = {},
         onSignupClicked = {},
         title = "TVING ID 로그인",
-        snackbarHostState = snackbarHostState
+        snackbarHostState = snackbarHostState,
+        buttonValid = false
     )
 }
 
@@ -92,6 +93,7 @@ fun LoginSCreen(
     onSignupClicked: () -> Unit,
     title: String,
     snackbarHostState: SnackbarHostState,
+    buttonValid: Boolean
 ) {
     Scaffold(
         snackbarHost = {
@@ -136,7 +138,7 @@ fun LoginSCreen(
                         LoginTextField(pwdValue, onPwdValueChange, "비밀번호", true)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicButton("로그인하기", onLoginClicked)
+                    BasicButton("로그인하기", onLoginClicked, buttonValid)
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier,

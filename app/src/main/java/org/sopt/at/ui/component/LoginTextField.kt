@@ -1,6 +1,9 @@
 package org.sopt.at.ui.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,6 +14,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -39,11 +43,14 @@ fun LoginTextField(
     isPassword: Boolean = false
 ){
     var pwdVisible by remember { mutableStateOf(false) }
+    val interactionSource = remember { MutableInteractionSource() }
+    val hasFocus by interactionSource.collectIsFocusedAsState()
 
-    TextField(
+    OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp)
+            .border(width = 1.dp, shape = RoundedCornerShape(5.dp), color = if(hasFocus) Gray0 else Color.Transparent),
         placeholder = { Text(text = placeholder, color = Gray20) },
         singleLine = true,
         shape = RoundedCornerShape(5.dp),
@@ -73,6 +80,7 @@ fun LoginTextField(
                     Icon(imageVector = image, description)
                 }
             }
-        }
+        },
+        interactionSource = interactionSource
     )
 }

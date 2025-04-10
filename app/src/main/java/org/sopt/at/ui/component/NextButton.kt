@@ -22,20 +22,23 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.sopt.at.ui.theme.Gray0
 import org.sopt.at.ui.theme.Gray20
+import org.sopt.at.ui.theme.Gray40
 
 @Composable
 fun NextButton(
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    buttonValid: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     OutlinedButton(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth().height(50.dp),
-        border = BorderStroke(0.5.dp, Gray20),
+        border = BorderStroke(0.5.dp, if(buttonValid) Gray20 else Gray40),
+        enabled = buttonValid,
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Black, contentColor = Gray0),
         shape = RoundedCornerShape(5.dp),
         interactionSource = interactionSource
     ) {
-        Text("다음", fontSize = 17.sp, color = Gray20)
+        Text("다음", fontSize = 17.sp, color = if(buttonValid) Gray20 else Gray40)
     }
 }
