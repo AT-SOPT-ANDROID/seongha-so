@@ -110,7 +110,7 @@ fun LoginSCreen(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ){
-                ReturnBar(onReturnClicked)
+                ReturnBar(Modifier.fillMaxWidth().padding(top = 10.dp, start = 10.dp), onReturnClicked)
                 Column(
                     modifier = Modifier.padding(20.dp).fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -134,11 +134,11 @@ fun LoginSCreen(
                         horizontalAlignment = BiasAlignment.Horizontal(-1f),
                         verticalArrangement = Arrangement.SpaceBetween
                     ){
-                        LoginTextField(idValue, onIdValueChange, "아이디", false)
-                        LoginTextField(pwdValue, onPwdValueChange, "비밀번호", true)
+                        LoginTextField(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), idValue, onIdValueChange, "아이디", false)
+                        LoginTextField(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), pwdValue, onPwdValueChange, "비밀번호", true)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicButton("로그인하기", onLoginClicked, buttonValid)
+                    BasicButton(Modifier.fillMaxWidth().height(50.dp),"로그인하기", onLoginClicked, buttonValid)
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier,

@@ -27,13 +27,14 @@ import org.sopt.at.ui.theme.Red40
 
 @Composable
 fun BasicButton(
+    modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit,
     buttonValid: Boolean
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().height(50.dp),
+        modifier = modifier,
         colors = if(buttonValid) ButtonDefaults.buttonColors(containerColor = Red40) else ButtonDefaults.buttonColors(containerColor = Gray40),
         enabled = buttonValid,
         shape = RoundedCornerShape(5.dp)

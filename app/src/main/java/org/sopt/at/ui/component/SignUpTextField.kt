@@ -30,6 +30,7 @@ import org.sopt.at.ui.theme.Gray60
 
 @Composable
 fun SignUpTextField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
@@ -40,8 +41,7 @@ fun SignUpTextField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp)
-            .border(0.5.dp, Gray0, RoundedCornerShape(5.dp)),
+        modifier = modifier.border(0.5.dp, Gray0, RoundedCornerShape(5.dp)),
         placeholder = { Text(text = placeholder, color = Gray20) },
         singleLine = true,
         shape = RoundedCornerShape(5.dp),

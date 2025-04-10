@@ -37,6 +37,7 @@ import org.sopt.at.ui.theme.Gray60
 
 @Composable
 fun LoginTextField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
@@ -49,7 +50,7 @@ fun LoginTextField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp)
+        modifier = modifier
             .border(width = 1.dp, shape = RoundedCornerShape(5.dp), color = if(hasFocus) Gray0 else Color.Transparent),
         placeholder = { Text(text = placeholder, color = Gray20) },
         singleLine = true,

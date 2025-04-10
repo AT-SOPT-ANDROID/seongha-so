@@ -17,10 +17,11 @@ import org.sopt.at.ui.theme.Gray0
 
 @Composable
 fun ReturnBar (
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ){
     Column(
-        modifier = Modifier.fillMaxWidth().padding(top = 10.dp, start = 10.dp),
+        modifier = modifier,
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.SpaceBetween
     ) {

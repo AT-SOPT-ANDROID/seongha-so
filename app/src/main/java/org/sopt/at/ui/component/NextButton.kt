@@ -26,13 +26,14 @@ import org.sopt.at.ui.theme.Gray40
 
 @Composable
 fun NextButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     buttonValid: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     OutlinedButton(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().height(50.dp),
+        modifier = modifier,
         border = BorderStroke(0.5.dp, if(buttonValid) Gray20 else Gray40),
         enabled = buttonValid,
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Black, contentColor = Gray0),
