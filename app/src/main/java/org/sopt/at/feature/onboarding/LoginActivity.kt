@@ -14,10 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
 import org.sopt.at.feature.mypage.MyActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.utils.hideKeyboard
 
 class LoginActivity : ComponentActivity() {
     private lateinit var getResult : ActivityResultLauncher<Intent>
@@ -42,6 +42,7 @@ class LoginActivity : ComponentActivity() {
                 val snackbarHostState = remember { SnackbarHostState() }
                 val scope = rememberCoroutineScope()
                 val buttonValid = viewModel.textId.isNotBlank() && viewModel.textPwd.isNotBlank()
+                val focusManager = LocalFocusManager.current
                 LoginSCreen(
                     idValue = viewModel.textId,
                     pwdValue = viewModel.textPwd,
@@ -51,7 +52,7 @@ class LoginActivity : ComponentActivity() {
                         //TODO 비워둠
                     },
                     onLoginClicked = {
-                        hideKeyboard(this)
+                        focusManager.clearFocus()
                         if(viewModel.loginValidCheck()){
                             //MyActivity로 이동하기
                             val intent = Intent(this, MyActivity::class.java)

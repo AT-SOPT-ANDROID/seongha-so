@@ -38,7 +38,7 @@ import org.sopt.at.ui.theme.Gray20
 
 @Preview
 @Composable
-fun Preview(
+private fun Preview(
 ){
     val snackbarHostState = remember { SnackbarHostState() }
     LoginSCreen(
@@ -83,11 +83,11 @@ fun LoginSCreen(
         )
         {
             Column(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
             ){
-                ReturnButton(Modifier.fillMaxWidth().padding(top = 10.dp, start = 10.dp), onReturnClicked)
+                ReturnButton(modifier = Modifier.fillMaxWidth().padding(top = 10.dp, start = 10.dp), onClick = onReturnClicked)
                 Column(
                     modifier = Modifier.padding(20.dp).fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -98,12 +98,12 @@ fun LoginSCreen(
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.SpaceBetween
                     ){
-                        Spacer(modifier = Modifier.fillMaxWidth().height(20.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
                         Text(text = title,
                             modifier = Modifier,
                             fontSize = 25.sp,
                             color = Gray0)
-                        Spacer(modifier = Modifier.fillMaxWidth().height(30.dp))
+                        Spacer(modifier = Modifier.height(30.dp))
                     }
 
                     Column (
@@ -111,11 +111,11 @@ fun LoginSCreen(
                         horizontalAlignment = BiasAlignment.Horizontal(-1f),
                         verticalArrangement = Arrangement.SpaceBetween
                     ){
-                        LoginTextField(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), idValue, onIdValueChange, "아이디", false)
-                        LoginTextField(Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), pwdValue, onPwdValueChange, "비밀번호", true)
+                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = idValue, onValueChange = onIdValueChange, placeholder = "아이디", isPassword = false)
+                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = pwdValue, onValueChange = onPwdValueChange, placeholder = "비밀번호", isPassword = true)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicButton(Modifier.fillMaxWidth().height(50.dp),"로그인하기", onLoginClicked, buttonValid)
+                    BasicButton(modifier = Modifier.fillMaxWidth().height(50.dp), text = "로그인하기", onClick = onLoginClicked, buttonValid = buttonValid)
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier,
@@ -128,26 +128,28 @@ fun LoginSCreen(
                         ) {
                             Text("아이디 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
-                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).fillMaxHeight().background(Gray20))
+                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).background(Gray20))
                         TextButton(
                             onClick = onFindPwdClicked
                         ) {
                             Text("비밀번호 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
-                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).fillMaxHeight().background(Gray20))
+                        Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).background(Gray20))
                         TextButton(
                             onClick = onSignupClicked
                         ) {
                             Text("회원가입", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
                     }
-                    Spacer(modifier = Modifier.height(15.dp).fillMaxWidth())
-                    Text(text = buildAnnotatedString {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Text(
+                        text = buildAnnotatedString {
                         append("이 사이트는 Google reCAPTCHA로 보호되며,\nGoogle 개인정보 처리방침과 서비스 약관이 적용됩니다.")
                         addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 31,end = 47)
                         addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 49,end = 55)
-                    },
-                        fontSize = 12.sp, textAlign = TextAlign.Center, color = Gray20)
+                        },
+                        fontSize = 12.sp, textAlign = TextAlign.Center, color = Gray20
+                    )
                 }
             }
         }

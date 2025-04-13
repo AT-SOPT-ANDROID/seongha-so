@@ -26,13 +26,13 @@ class SignUpViewModel : ViewModel() {
         }
     }
 
+    private val idRegex = Regex("^[a-zA-Z0-9]{6,12}\$")
+    private val pwdRegex = Regex("^[a-zA-Z0-9~!@#$%^&*]{8,15}\$")
     fun idValidCheck(id: String): Boolean{
-        val regex = Regex("^[a-zA-Z0-9]{6,12}\$")
-        return id.matches(regex)
+        return id.matches(idRegex)
     }
 
     fun pwdValidCheck(pwd: String): Boolean{
-        val regex = Regex("^[a-zA-Z0-9~!@#$%^&*]{8,15}\$")
-        return pwd.matches(regex)
+        return pwd.matches(pwdRegex)
     }
 }

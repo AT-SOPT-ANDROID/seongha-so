@@ -36,7 +36,6 @@ class SignUpActivity : ComponentActivity() {
                                 }
                             },
                             onReturnClicked = {
-                                viewModel.previewStep()
                                 val intent = Intent(this, LoginActivity::class.java)
                                 setResult(RESULT_OK, intent)
                                 finish()

@@ -1,7 +1,6 @@
 package org.sopt.at.feature.mypage
 
 import android.content.Context
-import android.widget.ImageButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,20 +16,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBackIosNew
-import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.KeyboardDoubleArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,7 +46,7 @@ import org.sopt.at.ui.theme.Gray60
 @Preview
 @Composable
 fun Preview(
-){
+) {
     MyScreen(
         textId = "sosongha3",
         context = LocalContext.current,
@@ -87,7 +81,9 @@ fun MyScreen(
                         .fillMaxWidth()
                         .padding(top = 10.dp, start = 10.dp), {})
                 Column(
-                    modifier = Modifier.padding(20.dp).fillMaxHeight(),
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ) {
@@ -131,7 +127,9 @@ fun MyScreen(
                                 )
                             }
                         }
-                        BasicOutlinedButton(Modifier.width(100.dp).height(35.dp), "프로필 전환", {}, true)
+                        BasicOutlinedButton(Modifier
+                            .width(100.dp)
+                            .height(35.dp), "프로필 전환", {}, true)
                     }
                     Column(
                         modifier = Modifier
@@ -189,7 +187,9 @@ fun MyScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicOutlinedButton(Modifier.fillMaxWidth().height(50.dp), "로그아웃", onLoginClicked, true)
+                    BasicOutlinedButton(Modifier
+                        .fillMaxWidth()
+                        .height(50.dp), "로그아웃", onLoginClicked, true)
 
                 }
             }
