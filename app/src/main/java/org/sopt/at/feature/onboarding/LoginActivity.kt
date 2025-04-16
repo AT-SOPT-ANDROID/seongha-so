@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
+import org.sopt.at.feature.main.MainActivity
 import org.sopt.at.feature.mypage.MyActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
@@ -55,7 +56,7 @@ class LoginActivity : ComponentActivity() {
                         focusManager.clearFocus()
                         if(viewModel.loginValidCheck()){
                             //MyActivity로 이동하기
-                            val intent = Intent(this, MyActivity::class.java)
+                            val intent = Intent(this, MainActivity::class.java)
                             intent.putExtra("id", viewModel.textId)
                             setResult(RESULT_OK, intent)
                             startActivity(intent)
