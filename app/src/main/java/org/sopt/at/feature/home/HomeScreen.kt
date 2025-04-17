@@ -34,11 +34,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.core.tab.HomeTabType
 import org.sopt.at.core.tab.TabType
+import org.sopt.at.domain.entity.Content
+import org.sopt.at.ui.component.AtSoptContentRow
 import org.sopt.at.ui.component.AtSoptTabBar
 import org.sopt.at.ui.theme.Gray20
 import org.sopt.at.ui.theme.Red40
@@ -53,11 +56,26 @@ fun Preview(){
 @Composable
 fun HomeScreen(
 ) {
+    //TODO 임시 데이터
+    val contents = listOf<Content>(
+        Content(
+            rank = 1,
+            title = "광해",
+            image = "https://img.freepik.com/premium-photo/grey-vertical-background-paper-texture_271293-49.jpg",
+            description = ""
+        ),
+        Content(
+            rank = 2,
+            title = "뽀로로",
+            image = "https://img.freepik.com/premium-photo/grey-vertical-background-paper-texture_271293-49.jpg",
+            description = ""
+        )
+    )
     var selectedTab by remember { mutableStateOf(HomeTabType.DRAMA) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
         stickyHeader {
             MainStickyHeader(
@@ -66,7 +84,24 @@ fun HomeScreen(
             )
         }
         item {
-            Text(text = "HOME", fontSize = 50.sp, color = Color.White)
+            AtSoptContentRow(
+                title = "오늘의 티빙 TOP 20",
+                contents = contents,
+                contentSize = Pair<Dp, Dp>(80.dp, 120.dp),
+                onSelected = { it -> },
+                showRank = true,
+                modifier = Modifier
+            )
+        }
+        item {
+            AtSoptContentRow(
+                title = "지금 방영 중인 콘텐츠",
+                contents = contents,
+                contentSize = Pair<Dp, Dp>(80.dp, 120.dp),
+                onSelected = { it -> },
+                showRank = false,
+                modifier = Modifier
+            )
         }
     }
 }
