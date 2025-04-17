@@ -40,7 +40,7 @@ fun AtSoptContentRow (
     title: String,
     contents: List<Content>,
     contentSize: Pair<Dp, Dp>,
-    onSelected: (Content) -> Unit,
+    onClicked: (Content) -> Unit,
     showRank: Boolean = false,
     modifier: Modifier,
 ){
@@ -57,10 +57,10 @@ fun AtSoptContentRow (
         contentPadding = PaddingValues(horizontal = 15.dp)
     ) {
         items(contents) { cotent ->
-            AtSoptContentContainer(
+            AtSoptContentRowContainer(
                 content = cotent,
                 contentSize = contentSize,
-                onSelected = onSelected,
+                onClicked = onClicked,
                 showRank = showRank,
             )
         }
@@ -68,10 +68,10 @@ fun AtSoptContentRow (
 }
 
 @Composable
-private fun AtSoptContentContainer(
+private fun AtSoptContentRowContainer(
     content: Content,
     contentSize: Pair<Dp, Dp>,
-    onSelected: (Content) -> Unit,
+    onClicked: (Content) -> Unit,
     showRank: Boolean = false,
     modifier: Modifier = Modifier
 ){
@@ -100,7 +100,7 @@ private fun AtSoptContentContainer(
             modifier = Modifier
                 .size(width = contentSize.first, height = contentSize.second)
                 .clip(shape = RoundedCornerShape(5.dp))
-                .clickable(onClick = {onSelected(content)}),
+                .clickable(onClick = {onClicked(content)}),
         )
     }
 }
