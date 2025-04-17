@@ -1,11 +1,11 @@
-package org.sopt.at.feature.mypage
+package org.sopt.at.feature.main
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class MyViewModel: ViewModel() {
+class MainViewModel: ViewModel() {
     var getId by mutableStateOf("")
 
 }

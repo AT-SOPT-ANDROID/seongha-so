@@ -1,6 +1,7 @@
 package org.sopt.at.feature.mypage
 
-import android.content.Context
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +36,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
 import org.sopt.at.R
+import org.sopt.at.feature.main.Main
+import org.sopt.at.feature.main.MainViewModel
+import org.sopt.at.feature.onboarding.LoginActivity
 import org.sopt.at.ui.component.BasicOutlinedButton
 import org.sopt.at.ui.component.ReturnButton
 import org.sopt.at.ui.theme.Gray0
@@ -47,19 +55,18 @@ import org.sopt.at.ui.theme.Gray60
 @Composable
 fun Preview(
 ) {
-    MyScreen(
-        textId = "sosongha3",
-        context = LocalContext.current,
-        onLoginClicked = {}
-    )
+    MyScreen(navController = rememberNavController())
 }
+
+@Serializable
+data object MyPage
 
 @Composable
 fun MyScreen(
-    textId: String,
-    context: Context,
-    onLoginClicked: () -> Unit,
+    navController: NavHostController,
+    viewModel: MainViewModel = viewModel(),
 ) {
+    val context = LocalContext.current
     Scaffold(
     ) { innerPadding ->
         Surface(
@@ -79,7 +86,8 @@ fun MyScreen(
                 ReturnButton(
                     Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp, start = 10.dp), {})
+                        .padding(top = 10.dp, start = 10.dp),
+                    onClick = {navController.navigate(Main)})
                 Column(
                     modifier = Modifier
                         .padding(20.dp)
@@ -113,7 +121,7 @@ fun MyScreen(
                                 )
                             }
                             Spacer(modifier = Modifier.width(10.dp))
-                            Text(textId, fontSize = 17.sp, color = Gray0)
+                            Text(viewModel.getId, fontSize = 17.sp, color = Gray0)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier.size(30.dp),
@@ -187,9 +195,19 @@ fun MyScreen(
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicOutlinedButton(Modifier
-                        .fillMaxWidth()
-                        .height(50.dp), "로그아웃", onLoginClicked, true)
+                    BasicOutlinedButton(
+                        modifier = Modifier.fillMaxWidth().height(50.dp),
+                        text = "로그아웃",
+                        onClick = {
+                            // LoginActivity로 이동
+                            val intent = Intent(context, LoginActivity::class.java)
+                            context.startActivity(intent)
+                            if (context is Activity) {
+                                context.finish()
+                            }
+                        },
+                        buttonValid = true
+                    )
 
                 }
             }

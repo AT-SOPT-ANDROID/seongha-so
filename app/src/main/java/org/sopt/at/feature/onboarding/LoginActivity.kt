@@ -17,7 +17,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
 import org.sopt.at.feature.main.MainActivity
-import org.sopt.at.feature.mypage.MyActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 class LoginActivity : ComponentActivity() {

@@ -11,20 +11,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
+import org.sopt.at.core.navigation.MainNavRoutes
 import org.sopt.at.core.navigation.NavRoute
 import org.sopt.at.core.navigation.NavRouteData
 import org.sopt.at.ui.component.AtSoptBottomNavigationBar
 import org.sopt.at.ui.theme.Gray40
 
+@Serializable
+data object Main
+
 @Composable
 fun MainScreen(
-    navController: NavHostController,
-    tabs: List<NavRouteData<NavRoute>>,
+    entireNavController: NavHostController,
+    viewModel: MainViewModel,
 ) {
+    val mainNavController = rememberNavController()
+    val tabs = MainNavRoutes.tabs
     Scaffold(
         bottomBar = {
             AtSoptBottomNavigationBar(
-                navController = navController,
+                navController = mainNavController,
                 tabs = tabs,
                 modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
                 colors = NavigationBarItemColors(
@@ -47,7 +55,8 @@ fun MainScreen(
         )
         {
             MainNavHost(
-                navController = navController,
+                navController = mainNavController,
+                entireNavController = entireNavController,
                 modifier = Modifier
             )
         }
