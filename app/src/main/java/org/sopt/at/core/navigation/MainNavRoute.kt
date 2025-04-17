@@ -1,4 +1,4 @@
-package org.sopt.at.feature.main
+package org.sopt.at.core.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -7,8 +7,6 @@ import androidx.compose.material.icons.filled.PhoneIphone
 import androidx.compose.material.icons.filled.SatelliteAlt
 import androidx.compose.material.icons.filled.Search
 import kotlinx.serialization.Serializable
-import org.sopt.at.core.navigation.NavRoute
-import org.sopt.at.core.navigation.NavRouteData
 
 @Serializable
 sealed interface MainNavRoute: NavRoute

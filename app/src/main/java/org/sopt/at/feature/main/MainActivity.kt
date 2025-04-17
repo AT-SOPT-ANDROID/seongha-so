@@ -4,15 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.PhoneIphone
-import androidx.compose.material.icons.filled.SatelliteAlt
-import androidx.compose.material.icons.filled.Search
 import androidx.navigation.compose.rememberNavController
-import org.sopt.at.core.navigation.NavRoute
-import org.sopt.at.core.navigation.NavRouteData
+import org.sopt.at.core.navigation.MainNavRoutes
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 
