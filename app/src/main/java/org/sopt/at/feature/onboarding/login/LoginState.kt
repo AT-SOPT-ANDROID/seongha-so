@@ -1,4 +1,7 @@
 package org.sopt.at.feature.onboarding.login
 
-class LoginState {
-}
+data class LoginState(
+    val id: String = "",
+    val pwd: String = "",
+    val isButtonEnabled: Boolean = false
+)
