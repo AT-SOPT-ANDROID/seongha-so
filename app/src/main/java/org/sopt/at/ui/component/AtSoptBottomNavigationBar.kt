@@ -13,13 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.core.navigation.NavRoute
 import org.sopt.at.core.navigation.NavRouteData
 
 @Composable
 fun AtSoptBottomNavigationBar (
     navController: NavHostController,
-    tabs: List<NavRouteData<NavRoute>>,
+    tabs: ImmutableList<NavRouteData<NavRoute>>,
     modifier: Modifier,
     colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
 ){

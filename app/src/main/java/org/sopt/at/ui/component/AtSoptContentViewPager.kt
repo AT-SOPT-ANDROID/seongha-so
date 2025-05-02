@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.sopt.at.R
 import org.sopt.at.core.tab.TabType
 import org.sopt.at.domain.entity.Content
@@ -43,7 +45,7 @@ import org.sopt.at.ui.theme.Transparent70
 @Composable
 fun AtSoptContentViewPager (
     pagerState: PagerState,
-    contents: List<Content>,
+    contents: ImmutableList<Content>,
     onClicked: (Content) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier.fillMaxWidth().height(500.dp),
@@ -79,7 +81,7 @@ fun AtSoptContentViewPager (
             Box (
                 modifier = Modifier.fillMaxWidth().height(120.dp)
                     .align(alignment = Alignment.BottomCenter)
-                    .background(brush = Brush.verticalGradient(listOf(Color.Transparent, Transparent70)))
+                    .background(brush = Brush.verticalGradient(persistentListOf(Color.Transparent, Transparent70)))
                     .clip(shape = RoundedCornerShape(10.dp)),
             ){
             }

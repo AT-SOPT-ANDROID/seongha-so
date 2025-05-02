@@ -1,11 +1,12 @@
 package org.sopt.at.feature.home
 
+import kotlinx.collections.immutable.persistentListOf
 import org.sopt.at.domain.entity.Content
 
 /*TODO: 임시데이터 이후 삭제 필요*/
 class ExampleContent {
     companion object {
-        val dramaContents = listOf<Content>(
+        val dramaContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "광해",
@@ -37,7 +38,7 @@ class ExampleContent {
                 description = "Cool, Cooler, Coolest 고등학생 등장!"
             ),
         )
-        val entertainmentContents = listOf<Content>(
+        val entertainmentContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "신서유기",
@@ -45,7 +46,7 @@ class ExampleContent {
                 description = "나영석 PD의 인기 예능!"
             ),
         )
-        val movieContents = listOf<Content>(
+        val movieContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "광해",
@@ -53,7 +54,7 @@ class ExampleContent {
                 description = "왕이 된 남자"
             ),
         )
-        val sportsContents = listOf<Content>(
+        val sportsContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "비야인드",
@@ -61,7 +62,7 @@ class ExampleContent {
                 description = "본격 야구 뒷담화"
             ),
         )
-        val animationContents = listOf<Content>(
+        val animationContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "사카모토입니다만?",
@@ -69,7 +70,7 @@ class ExampleContent {
                 description = "Cool, Cooler, Coolest 고등학생 등장!"
             ),
         )
-        val newsContents = listOf<Content>(
+        val newsContents = persistentListOf<Content>(
             Content(
                 rank = 1,
                 title = "연합뉴스TV",
