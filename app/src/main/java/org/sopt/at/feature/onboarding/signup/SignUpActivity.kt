@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import org.sopt.at.R
 import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
@@ -28,8 +29,8 @@ class SignUpActivity : ComponentActivity() {
                     viewModel = viewModel,
                     onFinish = { id, pwd ->
                         val intent = Intent(this, LoginActivity::class.java)
-                        intent.putExtra("id", id)
-                        intent.putExtra("pwd", pwd)
+                        intent.putExtra(getString(R.string.key_id), id)
+                        intent.putExtra(getString(R.string.key_pwd), pwd)
                         setResult(RESULT_OK, intent)
                         finish()
                     }
@@ -39,9 +40,9 @@ class SignUpActivity : ComponentActivity() {
                     SignUpStep.ID -> {
                         SignUpScreen(
                             value = state.id,
-                            placeholder = "아이디",
-                            title = "아이디를 입력해주세요.",
-                            description = "영문 소문자 또는 영문 대문자, 숫자 조합 6~12 자리",
+                            placeholder = getString(R.string.signup_placeholder_id),
+                            title = getString(R.string.signup_title_id),
+                            description = getString(R.string.signup_description_id),
                             isPassword = false,
                             onValueChange = {viewModel.onAction(SignUpAction.UpdateId(it))},
                             onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},
@@ -52,9 +53,9 @@ class SignUpActivity : ComponentActivity() {
                     SignUpStep.PASSWORD -> {
                         SignUpScreen(
                             value = state.pwd,
-                            placeholder = "비밀번호",
-                            title = "비밀번호를 입력해주세요.",
-                            description = "영문, 숫자, 특수문자(~!@$%^&*) 조합 8~15자리",
+                            placeholder = getString(R.string.signup_placeholder_pwd),
+                            title = getString(R.string.signup_title_pwd),
+                            description = getString(R.string.signup_description_pwd),
                             isPassword = true,
                             onValueChange = {viewModel.onAction(SignUpAction.UpdatePwd(it))},
                             onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},

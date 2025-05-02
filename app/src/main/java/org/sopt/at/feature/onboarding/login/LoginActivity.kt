@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
+import org.sopt.at.R
 import org.sopt.at.feature.main.MainActivity
 import org.sopt.at.feature.onboarding.signup.SignUpActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
@@ -34,8 +35,8 @@ class LoginActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                viewModel.getId = result.data?.getStringExtra("id") ?: ""
-                viewModel.getPwd = result.data?.getStringExtra("pwd") ?: ""
+                viewModel.getId = result.data?.getStringExtra(getString(R.string.key_id)) ?: ""
+                viewModel.getPwd = result.data?.getStringExtra(getString(R.string.key_pwd)) ?: ""
             }
         }
 
@@ -49,7 +50,7 @@ class LoginActivity : ComponentActivity() {
                     snackbarHostState = snackbarHostState,
                     onNavigateToMain = { id ->
                         val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra("id", id)
+                        intent.putExtra(getString(R.string.key_id), id)
                         setResult(RESULT_OK, intent)
                         startActivity(intent)
                         finish()
@@ -81,7 +82,7 @@ class LoginActivity : ComponentActivity() {
                     onSignupClicked = {
                         viewModel.onAction(LoginAction.SignupClicked)
                     },
-                    title = "TVING ID 로그인",
+                    title = getString(R.string.login_title),
                     snackbarHostState = snackbarHostState,
                     buttonValid = state.isButtonEnabled
                 )

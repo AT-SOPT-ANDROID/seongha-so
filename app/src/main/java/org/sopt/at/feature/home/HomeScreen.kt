@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -59,6 +60,7 @@ fun HomeScreen(
     entireNavController: NavHostController,
     viewModel: HomeViewModel = viewModel(),
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsState()
     HomeSideEffects(onAction = viewModel::onAction)
     val pagerState = rememberPagerState { state.contents.size }
@@ -84,7 +86,7 @@ fun HomeScreen(
         }
         item {
             AtSoptContentRow(
-                title = "오늘의 티빙 TOP 20",
+                title = context.getString(R.string.content_row_today_tiving),
                 contents = state.contents,
                 contentSize = Pair<Dp, Dp>(100.dp, 140.dp),
                 onClicked = { it -> },
@@ -94,7 +96,7 @@ fun HomeScreen(
         }
         item {
             AtSoptContentRow(
-                title = "지금 방영 중인 콘텐츠",
+                title = context.getString(R.string.content_row_now_contents),
                 contents = state.contents,
                 contentSize = Pair<Dp, Dp>(100.dp, 140.dp),
                 onClicked = { it -> },
@@ -112,6 +114,7 @@ private fun MainStickyHeader(
     entireNavController: NavHostController,
 )
 {
+    val context = LocalContext.current
     Column (
         modifier = Modifier.fillMaxWidth()
             .background(color = Color.Black),
@@ -125,7 +128,7 @@ private fun MainStickyHeader(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ){
-            Text(text = "TVING", fontSize = 25.sp, color = Red40, fontWeight = FontWeight.Black)
+            Text(text = context.getString(R.string.app_name_tving), fontSize = 25.sp, color = Red40, fontWeight = FontWeight.Black)
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
@@ -141,7 +144,7 @@ private fun MainStickyHeader(
                         modifier = Modifier.fillMaxSize(),
                         imageVector = Icons.Filled.ConnectedTv,
                         tint = Color.White,
-                        contentDescription = "chrome cast button"
+                        contentDescription = context.getString(R.string.description_chrome_button)
                     )
                 }
                 Spacer(modifier = Modifier.width(5.dp))
@@ -156,7 +159,7 @@ private fun MainStickyHeader(
                     Image(
                         modifier = Modifier.fillMaxSize(),
                         imageVector = ImageVector.vectorResource(id = R.drawable.icon_tving),
-                        contentDescription = "mypage button",
+                        contentDescription = context.getString(R.string.description_mypage_button),
                         contentScale = ContentScale.Fit,
                     )
                 }

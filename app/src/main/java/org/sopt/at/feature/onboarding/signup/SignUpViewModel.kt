@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.sopt.at.R
 
 @Stable
 class SignUpViewModel : ViewModel() {
@@ -37,14 +38,14 @@ class SignUpViewModel : ViewModel() {
                         if (idValidCheck(_state.value.id)) {
                             _state.value = _state.value.copy(step = SignUpStep.PASSWORD, isButtonEnabled = _state.value.pwd.isNotBlank())
                         } else {
-                            sendEvent(SignUpEvent.ShowToast("아이디가 유효하지 않습니다."))
+                            sendEvent(SignUpEvent.ShowToast(R.string.signup_id_not_valid))
                         }
                     }
                     SignUpStep.PASSWORD -> {
                         if (pwdValidCheck(_state.value.pwd)) {
                             sendEvent(SignUpEvent.FinishWithResult(_state.value.id, _state.value.pwd))
                         } else {
-                            sendEvent(SignUpEvent.ShowToast("비밀번호가 유효하지 않습니다."))
+                            sendEvent(SignUpEvent.ShowToast(R.string.signup_pwd_not_valid))
                         }
                     }
                 }
@@ -76,6 +77,6 @@ class SignUpViewModel : ViewModel() {
 
 @Immutable
 sealed class SignUpEvent {
-    data class ShowToast(val message: String) : SignUpEvent()
+    data class ShowToast(val message: Int) : SignUpEvent()
     data class FinishWithResult(val id: String, val pwd: String) : SignUpEvent()
 }

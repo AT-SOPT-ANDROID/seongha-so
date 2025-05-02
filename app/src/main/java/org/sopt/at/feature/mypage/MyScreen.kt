@@ -141,7 +141,7 @@ fun MyScreen(
                         }
                         BasicOutlinedButton(Modifier
                             .width(100.dp)
-                            .height(35.dp), "프로필 전환", {}, true)
+                            .height(35.dp), context.getString(R.string.profile_conversion_button), {}, true)
                     }
                     Column(
                         modifier = Modifier
@@ -156,8 +156,8 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("나의 이용권", fontSize = 13.sp, color = Gray10)
-                            Text("사용중인 이용권이 없습니다", fontSize = 15.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_my_ticket_description), fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_have_no_ticket), fontSize = 15.sp, color = Gray10)
                         }
                         Spacer(Modifier.height(10.dp))
                         Row(
@@ -165,8 +165,8 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("티빙 캐시", fontSize = 13.sp, color = Gray10)
-                            Text("0", fontSize = 15.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_my_cash_description), fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_have_no_cash), fontSize = 15.sp, color = Gray10)
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
@@ -183,7 +183,7 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("이용권을 구매하고 tvN, Jtbc 등 인기 시리즈와\n다양한 영화 콘텐츠를 자유롭게 시청하세요!", fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_default_description), fontSize = 13.sp, color = Gray10)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier,
@@ -201,7 +201,7 @@ fun MyScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     BasicOutlinedButton(
                         modifier = Modifier.fillMaxWidth().height(50.dp),
-                        text = "로그아웃",
+                        text = context.getString(R.string.logout_button),
                         onClick = {
                             // LoginActivity로 이동
                             val intent = Intent(context, LoginActivity::class.java)

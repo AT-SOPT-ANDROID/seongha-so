@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlin.enums.EnumEntries
@@ -25,6 +26,7 @@ fun AtSoptTabBar (
     onSelected: (TabType) -> Unit,
     modifier: Modifier = Modifier,
 ){
+    val context = LocalContext.current
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -32,7 +34,7 @@ fun AtSoptTabBar (
     ) {
         items(tabs) { tabType ->
             Text(
-                text = tabType.title,
+                text = context.getString(tabType.title),
                 color = if (selectedTab == tabType) Color.White else Gray20,
                 fontWeight = if (selectedTab == tabType) FontWeight.Bold else FontWeight.Light,
                 modifier = Modifier

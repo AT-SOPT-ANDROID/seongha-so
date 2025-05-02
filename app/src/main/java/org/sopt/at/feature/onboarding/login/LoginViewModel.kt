@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.sopt.at.R
 
 class LoginViewModel : ViewModel() {
     private val _state = MutableStateFlow(LoginState())
@@ -39,7 +40,7 @@ class LoginViewModel : ViewModel() {
                     }
                 } else {
                     viewModelScope.launch {
-                        _loginEvent.send(LoginEvent.ShowSnackbar("아이디 또는 비밀번호가 유효하지 않습니다."))
+                        _loginEvent.send(LoginEvent.ShowSnackbar(R.string.login_not_valid))
                     }
                 }
             }
@@ -62,5 +63,5 @@ class LoginViewModel : ViewModel() {
 sealed class LoginEvent {
     object NavigateToSignUp : LoginEvent()
     data class NavigateToMain(val id: String) : LoginEvent()
-    data class ShowSnackbar(val message: String) : LoginEvent()
+    data class ShowSnackbar(val message: Int) : LoginEvent()
 }
