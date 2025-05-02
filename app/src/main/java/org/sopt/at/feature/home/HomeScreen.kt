@@ -158,7 +158,7 @@ private fun MainStickyHeader(
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
-                        imageVector = ImageVector.vectorResource(id = R.drawable.icon_tving),
+                        painter = painterResource(id = R.drawable.icon_tving),
                         contentDescription = context.getString(R.string.description_mypage_button),
                         contentScale = ContentScale.Fit,
                     )

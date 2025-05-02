@@ -118,7 +118,7 @@ fun MyScreen(
                                 enabled = true
                             ) {
                                 Image(
-                                    imageVector = ImageVector.vectorResource(id = R.drawable.icon_tving),
+                                    painter = painterResource(id = R.drawable.icon_tving),
                                     contentDescription = null,
                                     contentScale = ContentScale.Fit,
                                     modifier = Modifier.fillMaxSize()
