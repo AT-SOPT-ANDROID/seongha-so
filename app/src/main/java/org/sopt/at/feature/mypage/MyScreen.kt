@@ -43,7 +43,7 @@ import kotlinx.serialization.Serializable
 import org.sopt.at.R
 import org.sopt.at.feature.main.Main
 import org.sopt.at.feature.main.MainViewModel
-import org.sopt.at.feature.onboarding.LoginActivity
+import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.component.BasicOutlinedButton
 import org.sopt.at.ui.component.ReturnButton
 import org.sopt.at.ui.theme.Gray0

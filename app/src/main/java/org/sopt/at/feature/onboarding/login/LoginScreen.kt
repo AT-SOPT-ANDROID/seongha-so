@@ -1,4 +1,4 @@
-package org.sopt.at.feature.onboarding
+package org.sopt.at.feature.onboarding.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package org.sopt.at.feature.onboarding
+package org.sopt.at.feature.onboarding.signup
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
