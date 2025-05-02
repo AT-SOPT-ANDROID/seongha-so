@@ -1,5 +1,6 @@
 package org.sopt.at.ui.component
 
+import NoRippleInteractionSource
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,6 +37,7 @@ fun AtSoptBottomNavigationBar (
                 onClick = {
                     navController.navigate(screen.route)
                 },
+                interactionSource = NoRippleInteractionSource(),
                 label = { Text(label) },
                 icon = {
                     Icon(screen.icon, contentDescription = label)

@@ -121,7 +121,7 @@ fun MyScreen(
                                 )
                             }
                             Spacer(modifier = Modifier.width(10.dp))
-                            Text(viewModel.getId, fontSize = 17.sp, color = Gray0)
+                            Text(viewModel.id, fontSize = 17.sp, color = Gray0)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier.size(30.dp),

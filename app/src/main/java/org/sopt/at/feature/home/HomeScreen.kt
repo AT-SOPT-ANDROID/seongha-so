@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.sopt.at.R
+import org.sopt.at.core.navigation.Home
 import org.sopt.at.core.tab.HomeTabType
 import org.sopt.at.core.tab.TabType
 import org.sopt.at.domain.entity.Content

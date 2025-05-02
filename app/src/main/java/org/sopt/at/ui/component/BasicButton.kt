@@ -1,5 +1,6 @@
 package org.sopt.at.ui.component
 
+import NoRippleInteractionSource
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -34,6 +35,7 @@ fun BasicButton(
 ) {
     Button(
         onClick = onClick,
+        interactionSource = NoRippleInteractionSource(),
         modifier = modifier,
         colors = if(buttonValid) ButtonDefaults.buttonColors(containerColor = Red40) else ButtonDefaults.buttonColors(containerColor = Gray40),
         enabled = buttonValid,

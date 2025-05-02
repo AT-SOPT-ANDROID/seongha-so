@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class MainViewModel: ViewModel() {
-    var getId by mutableStateOf("")
+    var id by mutableStateOf("")
 
+    fun storeId(id: String): Unit{
+        this.id = id;
+    }
 }

@@ -25,24 +25,13 @@ fun Preview(){
 fun LiveScreen(
 
 ) {
-    Scaffold(
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            color = MaterialTheme.colorScheme.background
-        )
-        {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
 
-            ) {
-                Text(text = "LIVE", fontSize = 50.sp, color = Color.White)
-            }
-        }
+    ) {
+        Text(text = "LIVE", fontSize = 50.sp, color = Color.White)
     }
 }

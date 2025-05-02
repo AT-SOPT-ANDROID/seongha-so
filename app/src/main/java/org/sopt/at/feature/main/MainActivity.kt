@@ -17,7 +17,7 @@ class MainActivity: ComponentActivity(){
         enableEdgeToEdge()
 
         //LoginActivity로부터 받은 정보 저장
-        viewModel.getId = intent.getStringExtra("id") ?: ""
+        viewModel.storeId(intent.getStringExtra("id") ?: "")
 
         setContent{
             ATSOPTANDROIDTheme {

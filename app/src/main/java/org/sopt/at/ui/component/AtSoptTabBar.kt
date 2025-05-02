@@ -1,5 +1,6 @@
 package org.sopt.at.ui.component
 
+import NoRippleInteractionSource
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -42,7 +43,11 @@ fun AtSoptTabBar (
                 fontWeight = if (selectedTab == tabType) FontWeight.Bold else FontWeight.Light,
                 modifier = Modifier
                     .padding(8.dp)
-                    .clickable(onClick = { onSelected(tabType) })
+                    .clickable(
+                        onClick = { onSelected(tabType) },
+                        interactionSource = NoRippleInteractionSource(),
+                        indication = null
+                    )
             )
         }
     }
