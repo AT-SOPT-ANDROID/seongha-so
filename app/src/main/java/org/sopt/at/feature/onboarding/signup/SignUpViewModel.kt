@@ -1,5 +1,7 @@
 package org.sopt.at.feature.onboarding.signup
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.getValue
@@ -11,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+@Stable
 class SignUpViewModel : ViewModel() {
     private val _state = MutableStateFlow(SignUpState())
     val state: StateFlow<SignUpState> = _state
@@ -71,6 +74,7 @@ class SignUpViewModel : ViewModel() {
     }
 }
 
+@Immutable
 sealed class SignUpEvent {
     data class ShowToast(val message: String) : SignUpEvent()
     data class FinishWithResult(val id: String, val pwd: String) : SignUpEvent()

@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -19,6 +20,7 @@ import org.sopt.at.feature.main.MainActivity
 import org.sopt.at.feature.onboarding.signup.SignUpActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
+@Stable
 class LoginActivity : ComponentActivity() {
     private lateinit var getResult : ActivityResultLauncher<Intent>
     private val viewModel: LoginViewModel by viewModels()

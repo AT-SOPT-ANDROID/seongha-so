@@ -1,5 +1,7 @@
 package org.sopt.at.feature.onboarding.login
 
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -56,6 +58,7 @@ class LoginViewModel : ViewModel() {
         _state.value.id == getId && _state.value.pwd == getPwd
 }
 
+@Immutable
 sealed class LoginEvent {
     object NavigateToSignUp : LoginEvent()
     data class NavigateToMain(val id: String) : LoginEvent()

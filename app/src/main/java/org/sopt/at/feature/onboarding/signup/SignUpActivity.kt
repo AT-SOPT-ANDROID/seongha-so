@@ -7,11 +7,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
+@Stable
 class SignUpActivity : ComponentActivity() {
     private val viewModel: SignUpViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {

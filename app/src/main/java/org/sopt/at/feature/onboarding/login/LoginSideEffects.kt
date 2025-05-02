@@ -3,6 +3,7 @@ package org.sopt.at.feature.onboarding.login
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 
