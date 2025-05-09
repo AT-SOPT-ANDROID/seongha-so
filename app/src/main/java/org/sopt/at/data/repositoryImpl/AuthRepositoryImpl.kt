@@ -15,10 +15,8 @@ class AuthRepositoryImpl(private val api: AuthService) : AuthRepository {
         withContext(Dispatchers.IO) {
             try {
                 val response = api.login(LoginRequest(id, pwd))
-                Log.e("AuthRepositoryImpl", response.message)
                 org.sopt.at.core.utils.Result.Success(User(response.data?.userId ?: 0))
             } catch (e: Exception) {
-                Log.e("AuthRepositoryImpl", "exception!" + e)
                 org.sopt.at.core.utils.Result.Error(e)
             }
         }

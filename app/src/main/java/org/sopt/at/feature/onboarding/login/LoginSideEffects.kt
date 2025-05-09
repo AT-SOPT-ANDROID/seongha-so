@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 fun LoginSideEffects(
     viewModel: LoginViewModel,
     snackbarHostState: SnackbarHostState,
-    onNavigateToMain: (String) -> Unit,
+    onNavigateToMain: (Long) -> Unit,
     onNavigateToSignUp: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -20,7 +20,7 @@ fun LoginSideEffects(
     LaunchedEffect(Unit) {
         viewModel.loginEvent.collect { event ->
             when (event) {
-                is LoginEvent.NavigateToMain -> onNavigateToMain(event.id)
+                is LoginEvent.NavigateToMain -> onNavigateToMain(event.userId)
                 LoginEvent.NavigateToSignUp -> onNavigateToSignUp()
                 is LoginEvent.ShowSnackbar -> scope.launch {
                     snackbarHostState.showSnackbar(context.getString(event.message))

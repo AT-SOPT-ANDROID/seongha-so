@@ -40,9 +40,9 @@ class LoginActivity : ComponentActivity() {
                 LoginSideEffects(
                     viewModel = viewModel,
                     snackbarHostState = snackbarHostState,
-                    onNavigateToMain = { id ->
+                    onNavigateToMain = { userId ->
                         val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra(getString(R.string.key_id), id)
+                        intent.putExtra(getString(R.string.key_id), userId)
                         setResult(RESULT_OK, intent)
                         startActivity(intent)
                         finish()

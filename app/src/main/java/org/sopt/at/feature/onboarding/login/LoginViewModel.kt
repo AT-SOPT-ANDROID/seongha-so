@@ -71,7 +71,7 @@ class LoginViewModel @Inject constructor(
             val result = loginUseCase(id, pwd)
             when (result) {
                 is org.sopt.at.core.utils.Result.Success -> {
-                    _loginEvent.send(LoginEvent.NavigateToMain(id))
+                    _loginEvent.send(LoginEvent.NavigateToMain(result.data.userId))
                 }
 
                 is org.sopt.at.core.utils.Result.Error -> {
@@ -86,6 +86,6 @@ class LoginViewModel @Inject constructor(
 @Immutable
 sealed class LoginEvent {
     object NavigateToSignUp : LoginEvent()
-    data class NavigateToMain(val id: String) : LoginEvent()
+    data class NavigateToMain(val userId: Long) : LoginEvent()
     data class ShowSnackbar(val message: Int) : LoginEvent()
 }

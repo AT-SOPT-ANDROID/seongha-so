@@ -14,12 +14,12 @@ import retrofit2.http.Query
 
 interface AuthService {
     @POST("/api/v1/auth/signup")
-    fun signup(
+    suspend fun signup(
         @Body request: SignupRequest
     ): BaseResponse<SignupResponse>
 
     @POST("/api/v1/auth/signin")
-    fun login(
+    suspend fun login(
         @Body request: LoginRequest
     ): BaseResponse<LoginResponse>
 }
