@@ -30,16 +30,6 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        //SignUpActivity와 정보 주고받기
-        getResult = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                viewModel.getId = result.data?.getStringExtra(getString(R.string.key_id)) ?: ""
-                viewModel.getPwd = result.data?.getStringExtra(getString(R.string.key_pwd)) ?: ""
-            }
-        }
-
         setContent{
             ATSOPTANDROIDTheme {
                 val snackbarHostState = remember { SnackbarHostState() }
@@ -57,7 +47,8 @@ class LoginActivity : ComponentActivity() {
                     },
                     onNavigateToSignUp = {
                         val intent = Intent(this, SignUpActivity::class.java)
-                        getResult.launch(intent)
+                        setResult(RESULT_OK, intent)
+                        startActivity(intent)
                     }
                 )
 

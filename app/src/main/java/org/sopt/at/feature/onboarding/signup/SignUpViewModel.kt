@@ -32,6 +32,10 @@ class SignUpViewModel : ViewModel() {
                 val newState = _state.value.copy(pwd = action.pwd)
                 _state.value = newState.copy(isButtonEnabled = newState.pwd.isNotBlank())
             }
+            is SignUpAction.UpdateNickname -> {
+                val newState = _state.value.copy(nickname = action.nickname)
+                _state.value = newState.copy(isButtonEnabled = newState.nickname.isNotBlank())
+            }
             SignUpAction.NextClicked -> {
                 when (_state.value.step) {
                     SignUpStep.ID -> {
@@ -43,9 +47,16 @@ class SignUpViewModel : ViewModel() {
                     }
                     SignUpStep.PASSWORD -> {
                         if (pwdValidCheck(_state.value.pwd)) {
-                            sendEvent(SignUpEvent.FinishWithResult(_state.value.id, _state.value.pwd))
+                            _state.value = _state.value.copy(step = SignUpStep.NICKNAME, isButtonEnabled = _state.value.nickname.isNotBlank())
                         } else {
                             sendEvent(SignUpEvent.ShowToast(R.string.signup_pwd_not_valid))
+                        }
+                    }
+                    SignUpStep.NICKNAME -> {
+                        if (nicknameValidCheck(_state.value.nickname)) {
+                            sendEvent(SignUpEvent.Finish)
+                        } else {
+                            sendEvent(SignUpEvent.ShowToast(R.string.signup_nickname_not_valid))
                         }
                     }
                 }
@@ -53,8 +64,12 @@ class SignUpViewModel : ViewModel() {
             SignUpAction.ReturnClicked -> {
                 if (_state.value.step == SignUpStep.PASSWORD) {
                     _state.value = _state.value.copy(step = SignUpStep.ID, isButtonEnabled = _state.value.id.isNotBlank())
-                } else {
-                    sendEvent(SignUpEvent.FinishWithResult("", ""))
+                }
+                else if(_state.value.step == SignUpStep.NICKNAME) {
+                    _state.value = _state.value.copy(step = SignUpStep.PASSWORD, isButtonEnabled = _state.value.pwd.isNotBlank())
+                }
+                else {
+                    sendEvent(SignUpEvent.Finish)
                 }
             }
         }
@@ -64,8 +79,9 @@ class SignUpViewModel : ViewModel() {
         viewModelScope.launch { _event.send(event) }
     }
 
-    private val idRegex = Regex("^[a-zA-Z0-9]{6,12}\$")
-    private val pwdRegex = Regex("^[a-zA-Z0-9~!@#$%^&*]{8,15}\$")
+    private val idRegex = Regex("^[a-zA-Z0-9]{8,20}\$")
+    private val pwdRegex = Regex("^[a-zA-Z0-9]{8,20}\$")
+    private val nicknameRegex = Regex("^[가-힣a-zA-Z0-9]{1,20}\$")
     fun idValidCheck(id: String): Boolean{
         return id.matches(idRegex)
     }
@@ -73,10 +89,13 @@ class SignUpViewModel : ViewModel() {
     fun pwdValidCheck(pwd: String): Boolean{
         return pwd.matches(pwdRegex)
     }
+    fun nicknameValidCheck(nickname: String): Boolean{
+        return nickname.matches(nicknameRegex)
+    }
 }
 
 @Immutable
 sealed class SignUpEvent {
     data class ShowToast(val message: Int) : SignUpEvent()
-    data class FinishWithResult(val id: String, val pwd: String) : SignUpEvent()
+    object Finish : SignUpEvent()
 }

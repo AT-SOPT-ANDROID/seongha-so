@@ -10,14 +10,14 @@ import androidx.compose.ui.platform.LocalContext
 @Composable
 fun SignUpSideEffects(
     viewModel: SignUpViewModel,
-    onFinish: (String, String) -> Unit
+    onFinish: () -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {
                 is SignUpEvent.ShowToast -> Toast.makeText(context, context.getString(event.message), Toast.LENGTH_SHORT).show()
-                is SignUpEvent.FinishWithResult -> onFinish(event.id, event.pwd)
+                is SignUpEvent.Finish -> onFinish()
             }
         }
     }

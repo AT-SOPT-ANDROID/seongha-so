@@ -7,5 +7,6 @@ data class SignUpState (
     val step: SignUpStep = SignUpStep.ID,
     val id: String = "",
     val pwd: String = "",
+    val nickname: String = "",
     val isButtonEnabled: Boolean = false
 )

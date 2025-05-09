@@ -20,9 +20,6 @@ class LoginViewModel : ViewModel() {
     private val _loginEvent = Channel<LoginEvent>()
     val loginEvent = _loginEvent.receiveAsFlow()
 
-    var getId: String = ""
-    var getPwd: String = ""
-
     fun onAction(action: LoginAction) {
         when (action) {
             is LoginAction.UpdateId -> {
@@ -55,8 +52,10 @@ class LoginViewModel : ViewModel() {
     private fun checkButtonValid(state: LoginState): Boolean =
         state.id.isNotBlank() && state.pwd.isNotBlank()
 
-    fun loginValidCheck(): Boolean =
-        _state.value.id == getId && _state.value.pwd == getPwd
+    fun loginValidCheck(): Boolean {
+        return false
+    }
+
 }
 
 @Immutable

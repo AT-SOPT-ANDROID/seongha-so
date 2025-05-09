@@ -6,6 +6,7 @@ import androidx.compose.runtime.Immutable
 sealed class SignUpAction {
     data class UpdateId(val id: String) : SignUpAction()
     data class UpdatePwd(val pwd: String) : SignUpAction()
+    data class UpdateNickname(val nickname: String) : SignUpAction()
     object NextClicked : SignUpAction()
     object ReturnClicked : SignUpAction()
 }

@@ -27,10 +27,8 @@ class SignUpActivity : ComponentActivity() {
 
                 SignUpSideEffects(
                     viewModel = viewModel,
-                    onFinish = { id, pwd ->
+                    onFinish = {
                         val intent = Intent(this, LoginActivity::class.java)
-                        intent.putExtra(getString(R.string.key_id), id)
-                        intent.putExtra(getString(R.string.key_pwd), pwd)
                         setResult(RESULT_OK, intent)
                         finish()
                     }
@@ -58,6 +56,19 @@ class SignUpActivity : ComponentActivity() {
                             description = getString(R.string.signup_description_pwd),
                             isPassword = true,
                             onValueChange = {viewModel.onAction(SignUpAction.UpdatePwd(it))},
+                            onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},
+                            onReturnClicked = {viewModel.onAction(SignUpAction.ReturnClicked)},
+                            buttonValid = state.isButtonEnabled
+                        )
+                    }
+                    SignUpStep.NICKNAME -> {
+                        SignUpScreen(
+                            value = state.nickname,
+                            placeholder = getString(R.string.signup_placeholder_nickname),
+                            title = getString(R.string.signup_title_nickname),
+                            description = getString(R.string.signup_description_nickname),
+                            isPassword = false,
+                            onValueChange = {viewModel.onAction(SignUpAction.UpdateNickname(it))},
                             onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},
                             onReturnClicked = {viewModel.onAction(SignUpAction.ReturnClicked)},
                             buttonValid = state.isButtonEnabled
