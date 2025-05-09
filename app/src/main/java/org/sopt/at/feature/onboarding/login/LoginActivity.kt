@@ -15,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.sopt.at.R
 import org.sopt.at.feature.main.MainActivity
@@ -22,23 +24,13 @@ import org.sopt.at.feature.onboarding.signup.SignUpActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 @Stable
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
-    private lateinit var getResult : ActivityResultLauncher<Intent>
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
-        //SignUpActivity와 정보 주고받기
-        getResult = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                viewModel.getId = result.data?.getStringExtra(getString(R.string.key_id)) ?: ""
-                viewModel.getPwd = result.data?.getStringExtra(getString(R.string.key_pwd)) ?: ""
-            }
-        }
 
         setContent{
             ATSOPTANDROIDTheme {
@@ -48,16 +40,17 @@ class LoginActivity : ComponentActivity() {
                 LoginSideEffects(
                     viewModel = viewModel,
                     snackbarHostState = snackbarHostState,
-                    onNavigateToMain = { id ->
+                    onNavigateToMain = { userId ->
                         val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra(getString(R.string.key_id), id)
+                        intent.putExtra(getString(R.string.key_id), userId)
                         setResult(RESULT_OK, intent)
                         startActivity(intent)
                         finish()
                     },
                     onNavigateToSignUp = {
                         val intent = Intent(this, SignUpActivity::class.java)
-                        getResult.launch(intent)
+                        setResult(RESULT_OK, intent)
+                        startActivity(intent)
                     }
                 )
 

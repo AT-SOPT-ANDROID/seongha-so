@@ -10,11 +10,13 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.at.R
 import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 @Stable
+@AndroidEntryPoint
 class SignUpActivity : ComponentActivity() {
     private val viewModel: SignUpViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +29,8 @@ class SignUpActivity : ComponentActivity() {
 
                 SignUpSideEffects(
                     viewModel = viewModel,
-                    onFinish = { id, pwd ->
+                    onFinish = {
                         val intent = Intent(this, LoginActivity::class.java)
-                        intent.putExtra(getString(R.string.key_id), id)
-                        intent.putExtra(getString(R.string.key_pwd), pwd)
                         setResult(RESULT_OK, intent)
                         finish()
                     }
@@ -58,6 +58,19 @@ class SignUpActivity : ComponentActivity() {
                             description = getString(R.string.signup_description_pwd),
                             isPassword = true,
                             onValueChange = {viewModel.onAction(SignUpAction.UpdatePwd(it))},
+                            onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},
+                            onReturnClicked = {viewModel.onAction(SignUpAction.ReturnClicked)},
+                            buttonValid = state.isButtonEnabled
+                        )
+                    }
+                    SignUpStep.NICKNAME -> {
+                        SignUpScreen(
+                            value = state.nickname,
+                            placeholder = getString(R.string.signup_placeholder_nickname),
+                            title = getString(R.string.signup_title_nickname),
+                            description = getString(R.string.signup_description_nickname),
+                            isPassword = false,
+                            onValueChange = {viewModel.onAction(SignUpAction.UpdateNickname(it))},
                             onNextButtonClicked = {viewModel.onAction(SignUpAction.NextClicked)},
                             onReturnClicked = {viewModel.onAction(SignUpAction.ReturnClicked)},
                             buttonValid = state.isButtonEnabled

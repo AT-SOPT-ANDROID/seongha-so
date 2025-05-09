@@ -20,7 +20,7 @@ import org.sopt.at.feature.shorts.ShortsScreen
 @Composable
 fun EntireNavHost(
     navController: NavHostController,
-    viewModel: MainViewModel,
+    mainViewModel: MainViewModel,
 ) {
     NavHost(
     navController = navController,
@@ -29,13 +29,13 @@ fun EntireNavHost(
         composable<MyPage> {
             MyScreen(
                 navController = navController,
-                viewModel = viewModel
+                mainViewModel = mainViewModel,
             )
         }
         composable<Main> {
             MainScreen(
                 entireNavController = navController,
-                viewModel = viewModel
+                mainViewModel = mainViewModel,
             )
         }
     }
