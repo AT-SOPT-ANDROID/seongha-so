@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.at.BuildConfig
 import org.sopt.at.core.utils.BaseResponseAdapterFactory
 import org.sopt.at.data.remote.service.AuthService
+import org.sopt.at.data.remote.service.UserService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -59,6 +60,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): AuthService =
+    fun provideAuthService(retrofit: Retrofit): AuthService =
         retrofit.create(AuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
 }

@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 
 @Stable
 class MainViewModel: ViewModel() {
-    var id by mutableStateOf("")
+    var userId by mutableStateOf(0L)
 
-    fun storeId(id: String): Unit{
-        this.id = id;
+    fun storeId(userId: Long): Unit{
+        this.userId = userId;
     }
 }

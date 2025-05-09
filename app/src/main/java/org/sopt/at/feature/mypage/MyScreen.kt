@@ -1,6 +1,7 @@
 package org.sopt.at.feature.mypage
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,30 +24,38 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import org.sopt.at.R
 import org.sopt.at.feature.main.Main
+import org.sopt.at.feature.main.MainActivity
 import org.sopt.at.feature.main.MainViewModel
+import org.sopt.at.feature.onboarding.login.LoginAction
 import org.sopt.at.feature.onboarding.login.LoginActivity
+import org.sopt.at.feature.onboarding.login.LoginSideEffects
+import org.sopt.at.feature.onboarding.signup.SignUpActivity
 import org.sopt.at.ui.component.BasicOutlinedButton
 import org.sopt.at.ui.component.ReturnButton
 import org.sopt.at.ui.theme.Gray0
@@ -58,7 +67,10 @@ import org.sopt.at.ui.theme.Gray60
 @Composable
 fun Preview(
 ) {
-    MyScreen(navController = rememberNavController())
+    MyScreen(
+        navController = rememberNavController(),
+        mainViewModel = hiltViewModel(),
+    )
 }
 
 @Immutable
@@ -68,9 +80,18 @@ data object MyPage
 @Composable
 fun MyScreen(
     navController: NavHostController,
-    viewModel: MainViewModel = viewModel(),
+    mainViewModel: MainViewModel,
+    myViewModel: MyViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val state by myViewModel.state.collectAsState()
+    MySideEffects(
+        viewModel = myViewModel,
+        snackbarHostState = snackbarHostState,
+    )
+    myViewModel.onAction(MyAction.LoadNickname(mainViewModel.userId))
+
     Scaffold(
     ) { innerPadding ->
         Surface(
@@ -125,7 +146,7 @@ fun MyScreen(
                                 )
                             }
                             Spacer(modifier = Modifier.width(10.dp))
-                            Text(viewModel.id, fontSize = 17.sp, color = Gray0)
+                            Text(state.nickname, fontSize = 17.sp, color = Gray0)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier.size(30.dp),

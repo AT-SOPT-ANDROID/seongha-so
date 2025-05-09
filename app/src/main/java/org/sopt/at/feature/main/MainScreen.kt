@@ -11,6 +11,8 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
@@ -27,7 +29,7 @@ data object Main
 @Composable
 fun MainScreen(
     entireNavController: NavHostController,
-    viewModel: MainViewModel,
+    mainViewModel: MainViewModel,
 ) {
     val mainNavController = rememberNavController()
     val tabs = MainNavRoutes.tabs
