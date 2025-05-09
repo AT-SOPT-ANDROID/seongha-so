@@ -10,11 +10,13 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.at.R
 import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 @Stable
+@AndroidEntryPoint
 class SignUpActivity : ComponentActivity() {
     private val viewModel: SignUpViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {

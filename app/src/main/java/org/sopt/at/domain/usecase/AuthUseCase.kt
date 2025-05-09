@@ -7,7 +7,6 @@ import org.sopt.at.domain.repository.AuthRepository
 
 class LoginUseCase(private val repository: AuthRepository) {
     suspend operator fun invoke(id: String, pwd: String): Result<User> {
-        Log.e("LoginUseCase", "invoke()")
         return repository.login(id, pwd)
     }
 }

@@ -1,11 +1,6 @@
 package org.sopt.at.feature.onboarding.login
 
-import android.util.Log
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,10 +9,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.sopt.at.R
+import org.sopt.at.core.utils.Result
 import org.sopt.at.domain.usecase.LoginUseCase
+import org.sopt.at.feature.onboarding.signup.SignUpEvent
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -26,8 +22,8 @@ class LoginViewModel @Inject constructor(
 {
     private val _state = MutableStateFlow(LoginState())
     val state: StateFlow<LoginState> = _state
-    private val _loginEvent = Channel<LoginEvent>()
-    val loginEvent = _loginEvent.receiveAsFlow()
+    private val _event = Channel<LoginEvent>()
+    val event = _event.receiveAsFlow()
 
     fun onAction(action: LoginAction) {
         when (action) {
@@ -54,7 +50,7 @@ class LoginViewModel @Inject constructor(
             }
             LoginAction.SignupClicked -> {
                 viewModelScope.launch {
-                    _loginEvent.send(LoginEvent.NavigateToSignUp)
+                    _event.send(LoginEvent.NavigateToSignUp)
                 }
             }
         }
@@ -64,18 +60,19 @@ class LoginViewModel @Inject constructor(
         state.id.isNotBlank() && state.pwd.isNotBlank()
 
     private fun login() {
-        Log.e("LoginViewModel", "login()")
         val id = _state.value.id
         val pwd = _state.value.pwd
         viewModelScope.launch {
             val result = loginUseCase(id, pwd)
             when (result) {
-                is org.sopt.at.core.utils.Result.Success -> {
-                    _loginEvent.send(LoginEvent.NavigateToMain(result.data.userId))
+                is Result.Success -> {
+                    _event.send(LoginEvent.NavigateToMain(result.data.userId))
                 }
-
-                is org.sopt.at.core.utils.Result.Error -> {
-                    _loginEvent.send(LoginEvent.ShowSnackbar(R.string.login_not_valid))
+                is Result.Failure -> {
+                    _event.send(LoginEvent.ShowSnackbarByString(result.message))
+                }
+                is Result.Error -> {
+                    _event.send(LoginEvent.ShowSnackbarByInt(result.message))
                 }
             }
         }
@@ -87,5 +84,6 @@ class LoginViewModel @Inject constructor(
 sealed class LoginEvent {
     object NavigateToSignUp : LoginEvent()
     data class NavigateToMain(val userId: Long) : LoginEvent()
-    data class ShowSnackbar(val message: Int) : LoginEvent()
+    data class ShowSnackbarByInt(val message: Int) : LoginEvent()
+    data class ShowSnackbarByString(val message: String) : LoginEvent()
 }

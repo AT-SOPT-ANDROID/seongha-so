@@ -61,5 +61,8 @@
     <string name="description_hide_pwd_button">Hide password</string>
     <string name="description_show_pwd_button">Show password</string>
     <string name="next_button">다음</string>
+    <string name="error_body_parsing_error">응답 파싱 에러</string>
+    <string name="error_body_null_or_empty_error">응답 null 에러</string>
+    <string name="unknowable_error">알 수 없는 에러</string>
 
 </resources>

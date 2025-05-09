@@ -1,5 +1,6 @@
 package org.sopt.at.feature.onboarding.signup
 
+import android.util.Log
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
@@ -7,15 +8,23 @@ import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.R
+import org.sopt.at.domain.usecase.LoginUseCase
+import org.sopt.at.domain.usecase.SignupUseCase
+import org.sopt.at.feature.onboarding.login.LoginEvent
+import org.sopt.at.core.utils.Result
 
-@Stable
-class SignUpViewModel : ViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val signupUseCase: SignupUseCase
+): ViewModel() {
     private val _state = MutableStateFlow(SignUpState())
     val state: StateFlow<SignUpState> = _state
 
@@ -42,21 +51,21 @@ class SignUpViewModel : ViewModel() {
                         if (idValidCheck(_state.value.id)) {
                             _state.value = _state.value.copy(step = SignUpStep.PASSWORD, isButtonEnabled = _state.value.pwd.isNotBlank())
                         } else {
-                            sendEvent(SignUpEvent.ShowToast(R.string.signup_id_not_valid))
+                            sendEvent(SignUpEvent.ShowToastByInt(R.string.signup_id_not_valid))
                         }
                     }
                     SignUpStep.PASSWORD -> {
                         if (pwdValidCheck(_state.value.pwd)) {
                             _state.value = _state.value.copy(step = SignUpStep.NICKNAME, isButtonEnabled = _state.value.nickname.isNotBlank())
                         } else {
-                            sendEvent(SignUpEvent.ShowToast(R.string.signup_pwd_not_valid))
+                            sendEvent(SignUpEvent.ShowToastByInt(R.string.signup_pwd_not_valid))
                         }
                     }
                     SignUpStep.NICKNAME -> {
                         if (nicknameValidCheck(_state.value.nickname)) {
-                            sendEvent(SignUpEvent.Finish)
+                            signup()
                         } else {
-                            sendEvent(SignUpEvent.ShowToast(R.string.signup_nickname_not_valid))
+                            sendEvent(SignUpEvent.ShowToastByInt(R.string.signup_nickname_not_valid))
                         }
                     }
                 }
@@ -92,10 +101,31 @@ class SignUpViewModel : ViewModel() {
     fun nicknameValidCheck(nickname: String): Boolean{
         return nickname.matches(nicknameRegex)
     }
+
+    private fun signup() {
+        val id = _state.value.id
+        val pwd = _state.value.pwd
+        val nickname = _state.value.nickname
+        viewModelScope.launch {
+            val result = signupUseCase(id, pwd, nickname)
+            when (result) {
+                is Result.Success -> {
+                    _event.send(SignUpEvent.Finish)
+                }
+                is Result.Failure -> {
+                    _event.send(SignUpEvent.ShowToastByString(result.message))
+                }
+                is Result.Error -> {
+                    _event.send(SignUpEvent.ShowToastByInt(result.message))
+                }
+            }
+        }
+    }
 }
 
 @Immutable
 sealed class SignUpEvent {
-    data class ShowToast(val message: Int) : SignUpEvent()
+    data class ShowToastByString(val message: String) : SignUpEvent()
+    data class ShowToastByInt(val message: Int) : SignUpEvent()
     object Finish : SignUpEvent()
 }

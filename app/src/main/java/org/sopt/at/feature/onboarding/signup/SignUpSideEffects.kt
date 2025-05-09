@@ -16,7 +16,8 @@ fun SignUpSideEffects(
     LaunchedEffect(Unit) {
         viewModel.event.collect { event ->
             when (event) {
-                is SignUpEvent.ShowToast -> Toast.makeText(context, context.getString(event.message), Toast.LENGTH_SHORT).show()
+                is SignUpEvent.ShowToastByString -> Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                is SignUpEvent.ShowToastByInt -> Toast.makeText(context, context.getString(event.message), Toast.LENGTH_SHORT).show()
                 is SignUpEvent.Finish -> onFinish()
             }
         }

@@ -8,6 +8,7 @@ import org.sopt.at.data.remote.service.AuthService
 import org.sopt.at.data.repositoryImpl.AuthRepositoryImpl
 import org.sopt.at.domain.repository.AuthRepository
 import org.sopt.at.domain.usecase.LoginUseCase
+import org.sopt.at.domain.usecase.SignupUseCase
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -21,5 +22,10 @@ object AuthModule {
     @Provides
     fun provideLoginUseCase(repository: AuthRepository): LoginUseCase {
         return LoginUseCase(repository)
+    }
+
+    @Provides
+    fun provideSignupUseCase(repository: AuthRepository): SignupUseCase {
+        return SignupUseCase(repository)
     }
 }
