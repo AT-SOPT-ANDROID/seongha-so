@@ -3,7 +3,8 @@ package org.sopt.at.core.utils
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
-data class Response<T>(
+@JvmSuppressWildcards
+data class BaseResponse<T>(
     @SerialName("success")
     val success: Boolean,
     @SerialName("code")

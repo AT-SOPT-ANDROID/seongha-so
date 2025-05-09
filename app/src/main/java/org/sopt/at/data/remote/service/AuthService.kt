@@ -1,20 +1,25 @@
-package org.sopt.at.data.remote.api
+package org.sopt.at.data.remote.service
 
-import org.sopt.at.data.remote.dto.ResponseSingleUserDto
-import org.sopt.at.data.remote.dto.ResponseUserListDto
+import org.sopt.at.core.utils.BaseResponse
+import org.sopt.at.data.remote.dto.LoginRequest
+import org.sopt.at.data.remote.dto.LoginResponse
+import org.sopt.at.data.remote.dto.SignupRequest
+import org.sopt.at.data.remote.dto.SignupResponse
 import retrofit2.Call
-import retrofit2.http.GET
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface UserService {
-    @GET("/api/users/{userId}")
-    fun getSingleUser(
-        @Path("userId") userId: Int
-    ): Call<ResponseSingleUserDto>
+interface AuthService {
+    @POST("/api/v1/auth/signup")
+    fun signup(
+        @Body request: SignupRequest
+    ): BaseResponse<SignupResponse>
 
-    @GET("/api/users")
-    fun getUserList(
-        @Query("page") page: Int
-    ): Call<ResponseUserListDto>
+    @POST("/api/v1/auth/signin")
+    fun login(
+        @Body request: LoginRequest
+    ): BaseResponse<LoginResponse>
 }

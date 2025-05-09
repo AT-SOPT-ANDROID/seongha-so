@@ -1,4 +1,6 @@
 package org.sopt.at.domain.entity
 
-class User {
-}
+data class User(
+    val userId: Long,
+    val nickname: String = ""
+)

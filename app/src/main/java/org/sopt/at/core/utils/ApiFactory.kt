@@ -6,7 +6,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.at.BuildConfig
-import org.sopt.at.data.remote.api.UserService
 import retrofit2.Retrofit
 
 object ApiFactory {
@@ -31,8 +30,8 @@ object ApiFactory {
     inline fun <reified T> create(): T = retrofit.create(T::class.java)
 }
 
-object ServicePool {
-    val userService: UserService by lazy {
-        ApiFactory.create<UserService>()
-    }
-}
+//object ServicePool {
+//    val userService: UserService by lazy {
+//        ApiFactory.create<UserService>()
+//    }
+//}
