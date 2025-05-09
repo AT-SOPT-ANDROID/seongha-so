@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.io.coil)
+    implementation(libs.kotlinx.collections.immutable)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,5 +1,6 @@
 package org.sopt.at.ui.component
 
+import NoRippleInteractionSource
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +32,7 @@ fun BasicOutlinedButton(
         enabled = buttonValid,
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Black, contentColor = Gray0),
         shape = RoundedCornerShape(5.dp),
-        interactionSource = interactionSource
+        interactionSource = NoRippleInteractionSource()
     ) {
         Text(text, fontSize = 17.sp, color = if(buttonValid) Gray20 else Gray40)
     }

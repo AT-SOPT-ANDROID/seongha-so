@@ -26,11 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import org.sopt.at.R
 import org.sopt.at.ui.theme.Gray0
 import org.sopt.at.ui.theme.Gray20
 import org.sopt.at.ui.theme.Gray60
@@ -46,6 +48,7 @@ fun LoginTextField(
     var pwdVisible by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     val hasFocus by interactionSource.collectIsFocusedAsState()
+    val context = LocalContext.current
 
     OutlinedTextField(
         value = value,
@@ -76,7 +79,7 @@ fun LoginTextField(
                 val image = if (pwdVisible)
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
-                val description = if (pwdVisible) "Hide password" else "Show password"
+                val description = if (pwdVisible) context.getString(R.string.description_hide_pwd_button) else context.getString(R.string.description_show_pwd_button)
                 IconButton(onClick = { pwdVisible = !pwdVisible }) {
                     Icon(imageVector = image, description)
                 }

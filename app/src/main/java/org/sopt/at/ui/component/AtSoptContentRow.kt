@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.request.ImageResult
+import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.R
 import org.sopt.at.core.tab.TabType
 import org.sopt.at.domain.entity.Content
@@ -38,7 +39,7 @@ import org.sopt.at.ui.theme.Gray20
 @Composable
 fun AtSoptContentRow (
     title: String,
-    contents: List<Content>,
+    contents: ImmutableList<Content>,
     contentSize: Pair<Dp, Dp>,
     onClicked: (Content) -> Unit,
     showRank: Boolean = false,

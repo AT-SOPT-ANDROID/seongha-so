@@ -1,10 +1,13 @@
 package org.sopt.at.core.tab
 
-enum class HomeTabType(override val title: String): TabType{
-    DRAMA("드라마"),
-    ENTERTAINMENT("예능"),
-    MOVIE("영화"),
-    SPORTS("스포츠"),
-    ANIMATION("애니"),
-    NEWS("뉴스"),
+import androidx.compose.ui.platform.LocalContext
+import org.sopt.at.R
+
+enum class HomeTabType(override val title: Int): TabType{
+    DRAMA(R.string.home_tab_type_drama),
+    ENTERTAINMENT(R.string.home_tab_type_entertainment),
+    MOVIE(R.string.home_tab_type_movie),
+    SPORTS(R.string.home_tab_type_sports),
+    ANIMATION(R.string.home_tab_type_animation),
+    NEWS(R.string.home_tab_type_news),
 }

@@ -1,3 +1,60 @@
 <resources>
+    <!--앱 이름-->
     <string name="app_name">AT SOPT ANDROID</string>
+    <string name="app_name_tving">TVING</string>
+
+    <!--Intent 전달용 키 값-->
+    <string name="key_id">id</string>
+    <string name="key_pwd">pwd</string>
+
+    <!--Profile-->
+    <string name="profile_conversion_button">프로필 전환</string>
+    <string name="profile_my_ticket_description">나의 이용권</string>
+    <string name="profile_have_no_ticket">사용중인 이용권이 없습니다</string>
+    <string name="profile_my_cash_description">티빙 캐시</string>
+    <string name="profile_have_no_cash">0</string>
+    <string name="profile_default_description">이용권을 구매하고 tvN, Jtbc 등 인기 시리즈와\n다양한 영화 콘텐츠를 자유롭게 시청하세요!</string>
+    <string name="logout_button">로그아웃</string>
+
+    <!--Login-->
+    <string name="login_title">TVING ID 로그인</string>
+    <string name="login_placeholder_id">아이디</string>
+    <string name="login_placeholder_pwd">비밀번호</string>
+    <string name="login_button">로그인하기</string>
+    <string name="login_goto_find_id">아이디 찾기</string>
+    <string name="login_goto_find_pwd">비밀번호 찾기</string>
+    <string name="login_goto_signup">회원가입</string>
+    <string name="login_regulation">이 사이트는 Google reCAPTCHA로 보호되며,\nGoogle 개인정보 처리방침과 서비스 약관이 적용됩니다.</string>
+    <string name="login_not_valid">아이디 또는 비밀번호가 유효하지 않습니다.</string>
+
+    <!--Signup-->
+    <string name="signup_title_id">아이디를 입력해주세요.</string>
+    <string name="signup_title_pwd">비밀번호를 입력해주세요.</string>
+    <string name="signup_placeholder_id">아이디</string>
+    <string name="signup_placeholder_pwd">비밀번호</string>
+    <string name="signup_description_id">영문 소문자 또는 영문 대문자, 숫자 조합 6~12 자리</string>
+    <string name="signup_description_pwd">영문, 숫자, 특수문자(~!@$%^&amp;*) 조합 8~15자리</string>
+    <string name="signup_id_not_valid">아이디가 유효하지 않습니다.</string>
+    <string name="signup_pwd_not_valid">비밀번호가 유효하지 않습니다.</string>
+
+    <!--Tab-->
+    <string name="tab_default">Tab</string>
+    <string name="home_tab_type_drama">드라마</string>
+    <string name="home_tab_type_entertainment">예능</string>
+    <string name="home_tab_type_movie">영화</string>
+    <string name="home_tab_type_sports">스포츠</string>
+    <string name="home_tab_type_animation">애니</string>
+    <string name="home_tab_type_news">뉴스</string>
+
+    <!--콘텐츠-->
+    <string name="content_row_today_tiving">오늘의 티빙 TOP 20</string>
+    <string name="content_row_now_contents">지금 방영 중인 콘텐츠</string>
+
+    <!--기타-->
+    <string name="description_chrome_button">chrome cast button</string>
+    <string name="description_mypage_button">mypage button</string>
+    <string name="description_hide_pwd_button">Hide password</string>
+    <string name="description_show_pwd_button">Show password</string>
+    <string name="next_button">다음</string>
+
 </resources>

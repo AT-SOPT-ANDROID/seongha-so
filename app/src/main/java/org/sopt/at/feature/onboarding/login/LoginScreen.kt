@@ -1,4 +1,4 @@
-package org.sopt.at.feature.onboarding
+package org.sopt.at.feature.onboarding.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,10 +19,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.at.R
 import org.sopt.at.ui.component.BasicButton
 import org.sopt.at.ui.component.LoginTextField
 import org.sopt.at.ui.component.ReturnButton
@@ -72,6 +75,7 @@ fun LoginSCreen(
     snackbarHostState: SnackbarHostState,
     buttonValid: Boolean
 ) {
+    val context = LocalContext.current
     Scaffold(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
@@ -111,11 +115,13 @@ fun LoginSCreen(
                         horizontalAlignment = BiasAlignment.Horizontal(-1f),
                         verticalArrangement = Arrangement.SpaceBetween
                     ){
-                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = idValue, onValueChange = onIdValueChange, placeholder = "아이디", isPassword = false)
-                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = pwdValue, onValueChange = onPwdValueChange, placeholder = "비밀번호", isPassword = true)
+                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = idValue, onValueChange = onIdValueChange, placeholder = context.getString(
+                            R.string.login_placeholder_id), isPassword = false)
+                        LoginTextField(modifier = Modifier.fillMaxWidth().padding(top = 5.dp, bottom = 5.dp), value = pwdValue, onValueChange = onPwdValueChange, placeholder = context.getString(
+                            R.string.login_placeholder_pwd), isPassword = true)
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-                    BasicButton(modifier = Modifier.fillMaxWidth().height(50.dp), text = "로그인하기", onClick = onLoginClicked, buttonValid = buttonValid)
+                    BasicButton(modifier = Modifier.fillMaxWidth().height(50.dp), text = context.getString(R.string.login_button), onClick = onLoginClicked, buttonValid = buttonValid)
                     Spacer(modifier = Modifier.height(20.dp))
                     Row(
                         modifier = Modifier,
@@ -126,25 +132,25 @@ fun LoginSCreen(
                         TextButton(
                             onClick = onFindIdClicked
                         ) {
-                            Text("아이디 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                            Text(context.getString(R.string.login_goto_find_id), fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
                         Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).background(Gray20))
                         TextButton(
                             onClick = onFindPwdClicked
                         ) {
-                            Text("비밀번호 찾기", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                            Text(context.getString(R.string.login_goto_find_pwd), fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
                         Spacer(modifier = Modifier.padding(7.dp).width(1.dp).height(20.dp).background(Gray20))
                         TextButton(
                             onClick = onSignupClicked
                         ) {
-                            Text("회원가입", fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
+                            Text(context.getString(R.string.login_goto_signup), fontSize = 15.sp, textAlign = TextAlign.Center, color = Gray20)
                         }
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = buildAnnotatedString {
-                        append("이 사이트는 Google reCAPTCHA로 보호되며,\nGoogle 개인정보 처리방침과 서비스 약관이 적용됩니다.")
+                        append(context.getString(R.string.login_regulation))
                         addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 31,end = 47)
                         addStyle(style = SpanStyle(textDecoration = TextDecoration.Underline,color = Gray20),start = 49,end = 55)
                         },

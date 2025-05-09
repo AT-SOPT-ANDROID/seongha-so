@@ -1,0 +1,122 @@
+package org.sopt.at.feature.onboarding.signup
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import org.sopt.at.R
+import org.sopt.at.ui.component.BasicOutlinedButton
+import org.sopt.at.ui.component.ReturnButton
+import org.sopt.at.ui.component.SignUpTextField
+import org.sopt.at.ui.theme.Gray0
+import org.sopt.at.ui.theme.Gray20
+
+@Composable
+fun SignUpScreen(
+    value: String,
+    onValueChange: (String) -> Unit,
+    onNextButtonClicked: () -> Unit,
+    onReturnClicked: () -> Unit,
+    placeholder: String,
+    title: String,
+    description: String,
+    isPassword: Boolean,
+    buttonValid: Boolean
+) {
+    val context = LocalContext.current
+
+    Scaffold {
+            innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top
+                ) {
+                    ReturnButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, start = 10.dp),
+                        onClick = onReturnClicked
+                    )
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(
+                                text = title,
+                                fontSize = 25.sp,
+                                color = Gray0
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                        }
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = BiasAlignment.Horizontal(-1f),
+                            verticalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            SignUpTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 5.dp, bottom = 5.dp),
+                                value = value,
+                                onValueChange = onValueChange,
+                                placeholder = placeholder,
+                                isPassword = isPassword
+                            )
+                            Spacer(modifier = Modifier.height(5.dp))
+                            Text(
+                                description,
+                                fontSize = 12.sp,
+                                textAlign = TextAlign.Start,
+                                color = Gray20
+                            )
+                        }
+                    }
+                }
+                Column(
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        top = 20.dp,
+                        bottom = 100.dp
+                    )
+                ) {
+                    BasicOutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        text = context.getString(R.string.next_button),
+                        onClick = onNextButtonClicked,
+                        buttonValid = buttonValid
+                    )
+                }
+            }
+        }
+    }
+}

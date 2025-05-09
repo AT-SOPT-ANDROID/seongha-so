@@ -26,13 +26,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,7 +46,7 @@ import kotlinx.serialization.Serializable
 import org.sopt.at.R
 import org.sopt.at.feature.main.Main
 import org.sopt.at.feature.main.MainViewModel
-import org.sopt.at.feature.onboarding.LoginActivity
+import org.sopt.at.feature.onboarding.login.LoginActivity
 import org.sopt.at.ui.component.BasicOutlinedButton
 import org.sopt.at.ui.component.ReturnButton
 import org.sopt.at.ui.theme.Gray0
@@ -58,6 +61,7 @@ fun Preview(
     MyScreen(navController = rememberNavController())
 }
 
+@Immutable
 @Serializable
 data object MyPage
 
@@ -121,7 +125,7 @@ fun MyScreen(
                                 )
                             }
                             Spacer(modifier = Modifier.width(10.dp))
-                            Text(viewModel.getId, fontSize = 17.sp, color = Gray0)
+                            Text(viewModel.id, fontSize = 17.sp, color = Gray0)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier.size(30.dp),
@@ -137,7 +141,7 @@ fun MyScreen(
                         }
                         BasicOutlinedButton(Modifier
                             .width(100.dp)
-                            .height(35.dp), "프로필 전환", {}, true)
+                            .height(35.dp), context.getString(R.string.profile_conversion_button), {}, true)
                     }
                     Column(
                         modifier = Modifier
@@ -152,8 +156,8 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("나의 이용권", fontSize = 13.sp, color = Gray10)
-                            Text("사용중인 이용권이 없습니다", fontSize = 15.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_my_ticket_description), fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_have_no_ticket), fontSize = 15.sp, color = Gray10)
                         }
                         Spacer(Modifier.height(10.dp))
                         Row(
@@ -161,8 +165,8 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("티빙 캐시", fontSize = 13.sp, color = Gray10)
-                            Text("0", fontSize = 15.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_my_cash_description), fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_have_no_cash), fontSize = 15.sp, color = Gray10)
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
@@ -179,7 +183,7 @@ fun MyScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("이용권을 구매하고 tvN, Jtbc 등 인기 시리즈와\n다양한 영화 콘텐츠를 자유롭게 시청하세요!", fontSize = 13.sp, color = Gray10)
+                            Text(context.getString(R.string.profile_default_description), fontSize = 13.sp, color = Gray10)
                             IconButton(
                                 onClick = {},
                                 modifier = Modifier,
@@ -197,7 +201,7 @@ fun MyScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     BasicOutlinedButton(
                         modifier = Modifier.fillMaxWidth().height(50.dp),
-                        text = "로그아웃",
+                        text = context.getString(R.string.logout_button),
                         onClick = {
                             // LoginActivity로 이동
                             val intent = Intent(context, LoginActivity::class.java)

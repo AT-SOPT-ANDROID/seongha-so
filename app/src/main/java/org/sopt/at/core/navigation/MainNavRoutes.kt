@@ -6,6 +6,9 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PhoneIphone
 import androidx.compose.material.icons.filled.SatelliteAlt
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,8 +25,9 @@ data object Search : MainNavRoute
 @Serializable
 data object History : MainNavRoute
 
+@Immutable
 object MainNavRoutes {
-    val tabs: List<NavRouteData<NavRoute>> = listOf(
+    val tabs: ImmutableList<NavRouteData<NavRoute>> = persistentListOf(
         NavRouteData(Home, Icons.Filled.Home),
         NavRouteData(Shorts, Icons.Filled.PhoneIphone),
         NavRouteData(Live, Icons.Filled.SatelliteAlt),

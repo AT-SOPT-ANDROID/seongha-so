@@ -1,8 +1,7 @@
-package org.sopt.at.feature.onboarding
+package org.sopt.at.feature.onboarding.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,15 +9,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
+import org.sopt.at.R
 import org.sopt.at.feature.main.MainActivity
+import org.sopt.at.feature.onboarding.signup.SignUpActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
+@Stable
 class LoginActivity : ComponentActivity() {
     private lateinit var getResult : ActivityResultLauncher<Intent>
     private val viewModel: LoginViewModel by viewModels()
@@ -32,41 +35,43 @@ class LoginActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                viewModel.getId = result.data?.getStringExtra("id") ?: ""
-                viewModel.getPwd = result.data?.getStringExtra("pwd") ?: ""
+                viewModel.getId = result.data?.getStringExtra(getString(R.string.key_id)) ?: ""
+                viewModel.getPwd = result.data?.getStringExtra(getString(R.string.key_pwd)) ?: ""
             }
         }
 
         setContent{
             ATSOPTANDROIDTheme {
                 val snackbarHostState = remember { SnackbarHostState() }
-                val scope = rememberCoroutineScope()
-                val buttonValid = viewModel.textId.isNotBlank() && viewModel.textPwd.isNotBlank()
                 val focusManager = LocalFocusManager.current
+                val state by viewModel.state.collectAsState()
+                LoginSideEffects(
+                    viewModel = viewModel,
+                    snackbarHostState = snackbarHostState,
+                    onNavigateToMain = { id ->
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra(getString(R.string.key_id), id)
+                        setResult(RESULT_OK, intent)
+                        startActivity(intent)
+                        finish()
+                    },
+                    onNavigateToSignUp = {
+                        val intent = Intent(this, SignUpActivity::class.java)
+                        getResult.launch(intent)
+                    }
+                )
+
                 LoginSCreen(
-                    idValue = viewModel.textId,
-                    pwdValue = viewModel.textPwd,
-                    onIdValueChange = {value -> viewModel.textId = value},
-                    onPwdValueChange = {value -> viewModel.textPwd = value},
+                    idValue = state.id,
+                    pwdValue = state.pwd,
+                    onIdValueChange = {viewModel.onAction(LoginAction.UpdateId(it))},
+                    onPwdValueChange = {viewModel.onAction(LoginAction.UpdatePwd(it))},
                     onReturnClicked = {
                         //TODO 비워둠
                     },
                     onLoginClicked = {
                         focusManager.clearFocus()
-                        if(viewModel.loginValidCheck()){
-                            //MyActivity로 이동하기
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.putExtra("id", viewModel.textId)
-                            setResult(RESULT_OK, intent)
-                            startActivity(intent)
-                            finish()
-                        }
-                        else{
-                            //스낵바 띄우기
-                            scope.launch {
-                                snackbarHostState.showSnackbar("아이디 또는 비밀번호가 유효하지 않습니다.")
-                            }
-                        }
+                        viewModel.onAction(LoginAction.LoginClicked)
                     },
                     onFindIdClicked = {
                         //TODO 비워둠
@@ -75,13 +80,11 @@ class LoginActivity : ComponentActivity() {
                         //TODO 비워둠
                     },
                     onSignupClicked = {
-                        //SignUpActivity로 이동하기
-                        val intent = Intent(this, SignUpActivity::class.java)
-                        getResult.launch(intent)
+                        viewModel.onAction(LoginAction.SignupClicked)
                     },
-                    title = "TVING ID 로그인",
+                    title = getString(R.string.login_title),
                     snackbarHostState = snackbarHostState,
-                    buttonValid = buttonValid
+                    buttonValid = state.isButtonEnabled
                 )
             }
         }

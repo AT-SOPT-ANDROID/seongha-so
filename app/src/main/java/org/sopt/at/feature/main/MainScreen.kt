@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,7 @@ import org.sopt.at.core.navigation.NavRouteData
 import org.sopt.at.ui.component.AtSoptBottomNavigationBar
 import org.sopt.at.ui.theme.Gray40
 
+@Immutable
 @Serializable
 data object Main
 
